@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-var l *zap.Logger
+var L *zap.Logger
 
 func Init() (err error) {
 	cfg := config.ShareConf.Logger
@@ -33,8 +33,8 @@ func Init() (err error) {
 		core = zapcore.NewCore(encoder, writerSyncer, level)
 	}
 
-	l = zap.New(core, zap.AddCaller())
-	zap.ReplaceGlobals(l)
+	L = zap.New(core, zap.AddCaller())
+	zap.ReplaceGlobals(L)
 	zap.L().Info("init logger success")
 	return
 }
