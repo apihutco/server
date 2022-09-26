@@ -2,7 +2,6 @@ package config
 
 import (
 	"fmt"
-	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 	"strconv"
 )
@@ -56,10 +55,6 @@ type Logger struct {
 
 func Init() error {
 	viper.SetConfigFile("./conf/config.yaml")
-	viper.WatchConfig()
-	viper.OnConfigChange(func(in fsnotify.Event) {
-		_ = viper.Unmarshal(&ShareConf)
-	})
 	err := viper.ReadInConfig()
 	if err != nil {
 		return err
