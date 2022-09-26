@@ -1,1 +1,5 @@
 .idea
+conf/*
+!conf/config.sample.yaml
+*.log
+*.db
