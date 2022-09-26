@@ -1,0 +1,27 @@
+site:
+  mode: debug # debug,release
+  port: 8090
+
+db:
+  driver: sqlite # sqlite,mysql
+  mysql:
+    host: 127.0.0.1
+    user: apihut
+    password: 12346
+    port: 3306
+    db_name: apihut
+  sqlite:
+    name: test.db
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: "123456"
+  db: 0
+
+logger:
+  level: debug
+  file_name: apihut.log
+  max_size: 12
+  max_age: 12
+  max_backups: 12
