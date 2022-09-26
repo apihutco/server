@@ -55,7 +55,7 @@ type Logger struct {
 }
 
 func Init() error {
-	viper.SetConfigFile("./conf/config.sample.yaml")
+	viper.SetConfigFile("./conf/config.yaml")
 	viper.WatchConfig()
 	viper.OnConfigChange(func(in fsnotify.Event) {
 		_ = viper.Unmarshal(&ShareConf)
