@@ -6,13 +6,14 @@ import (
 	"strconv"
 )
 
-var ShareConf *AppConf
+var Share *AppConf
 
 type AppConf struct {
 	*Site   `mapstructure:"site"`
 	*DB     `mapstructure:"db"`
 	*Redis  `mapstructure:"redis"`
 	*Logger `mapstructure:"logger"`
+	*Open   `mapstructure:"open"`
 }
 
 type Site struct {
@@ -59,12 +60,12 @@ func Init() error {
 	if err != nil {
 		return err
 	}
-	if err = viper.Unmarshal(&ShareConf); err != nil {
+	if err = viper.Unmarshal(&Share); err != nil {
 		return err
 	}
 	return nil
 }
 
 func GetSitePort() string {
-	return fmt.Sprintf(":%s", strconv.Itoa(ShareConf.Site.Port))
+	return fmt.Sprintf(":%s", strconv.Itoa(Share.Site.Port))
 }

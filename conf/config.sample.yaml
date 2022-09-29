@@ -25,3 +25,9 @@ logger:
   max_size: 12
   max_age: 12
   max_backups: 12
+
+open:
+  tencent:
+    key: ""
+  gaode:
+    key: ""
