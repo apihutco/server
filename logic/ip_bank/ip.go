@@ -1,7 +1,6 @@
 package ip_bank
 
 import (
-	"apihut-server/config"
 	"apihut-server/dao/mysql"
 	"apihut-server/logger"
 	"apihut-server/logic/consts"
@@ -19,8 +18,8 @@ type IIPCtrl interface {
 func GetIP(ip net.IP) (*models.IPBank, error) {
 	ctrlList := make([]IIPCtrl, 3)
 	ctrlList[0] = LocalInit()
-	ctrlList[1] = TencentInit(config.Share.Open.Tencent.Key)
-	// ctrlList[2] = GaodeInit(config.Share.Open.Gaode.Key)
+	ctrlList[1] = GaodeInit()
+	ctrlList[2] = TencentInit()
 
 	var allErr error
 	// 按序轮询数据源

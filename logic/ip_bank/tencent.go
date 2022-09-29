@@ -36,8 +36,8 @@ type tencentRsp struct {
 	} `json:"result"`
 }
 
-func TencentInit(key string) IIPCtrl {
-	return &tencent{key: key}
+func TencentInit() IIPCtrl {
+	return &tencent{key: config.Share.Open.Tencent.Key}
 }
 
 func (t *tencent) GetIP(ip net.IP) (*models.IPBank, error) {
