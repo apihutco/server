@@ -4,7 +4,6 @@ import (
 	"apihut-server/config"
 	. "apihut-server/controller"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 func SetupRouter() *gin.Engine {
@@ -16,6 +15,8 @@ func SetupRouter() *gin.Engine {
 	// 文档
 
 	// IP定位（腾讯，高德）
+	r.GET("/ip", IPHandler)     // 请求来源IP
+	r.GET("/ip/:ip", IPHandler) // 指定IP
 
 	// 协议测试（get，post，ws）
 
