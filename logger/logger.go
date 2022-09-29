@@ -9,10 +9,10 @@ import (
 	"os"
 )
 
-var L *zap.Logger
+var l *zap.Logger
 
 func Init() (err error) {
-	cfg := config.ShareConf.Logger
+	cfg := config.Share.Logger
 	writerSyncer := logWriter(cfg.FileName, cfg.MaxSize, cfg.MaxBackups, cfg.MaxAge)
 	encoder := logEncoder()
 	level := new(zapcore.Level)
@@ -21,7 +21,7 @@ func Init() (err error) {
 		return err
 	}
 	var core zapcore.Core
-	if config.ShareConf.Site.Mode != gin.ReleaseMode {
+	if config.Share.Site.Mode != gin.ReleaseMode {
 		// 开发模式同时输出终端和文件
 		console := zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig())
 		core = zapcore.NewTee(
@@ -33,8 +33,8 @@ func Init() (err error) {
 		core = zapcore.NewCore(encoder, writerSyncer, level)
 	}
 
-	L = zap.New(core, zap.AddCaller())
-	zap.ReplaceGlobals(L)
+	l = zap.New(core, zap.AddCaller())
+	zap.ReplaceGlobals(l)
 	zap.L().Info("init logger success")
 	return
 }
@@ -57,4 +57,8 @@ func logWriter(name string, maxSize, maxBackup, maxAge int) zapcore.WriteSyncer 
 		MaxAge:     maxSize,
 	}
 	return zapcore.AddSync(lumberJackLogger)
+}
+
+func L() *zap.Logger {
+	return l
 }
