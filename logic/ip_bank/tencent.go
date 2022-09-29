@@ -6,6 +6,7 @@ import (
 	"apihut-server/models"
 	"encoding/json"
 	"errors"
+	"gorm.io/gorm"
 	"io"
 	"io/ioutil"
 	"net"
@@ -71,7 +72,12 @@ func (t *tencent) GetIP(ip net.IP) (*models.IPBank, error) {
 	}
 
 	if lbs.Status != 0 {
-		return nil, errors.New(lbs.Message)
+		switch lbs.Status {
+		case 382:
+			return nil, gorm.ErrRecordNotFound
+		default:
+			return nil, errors.New(lbs.Message)
+		}
 	}
 
 	return &models.IPBank{

@@ -20,7 +20,7 @@ func IPHandler(c *gin.Context) {
 	info, err := ip_bank.GetIP(ip)
 	if err != nil {
 		logger.L().Error("IP not found", zap.Error(err))
-		response.ErrorWithMsg(c, errors.Unwrap(err).Error())
+		response.ErrorWithMsgAndData(c, errors.Unwrap(err).Error(), gin.H{"ip": strIP})
 		return
 	}
 

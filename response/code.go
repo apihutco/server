@@ -42,6 +42,11 @@ func ErrorWithMsg(c *gin.Context, msg string) {
 	JSON(c, code, msg, nil)
 }
 
+func ErrorWithMsgAndData(c *gin.Context, msg string, data interface{}) {
+	code := CodeError
+	JSON(c, code, msg, data)
+}
+
 func JSON(c *gin.Context, code Code, msg string, data interface{}) {
 	c.JSON(http.StatusOK, &Body{
 		Code: code,
