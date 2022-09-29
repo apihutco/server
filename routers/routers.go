@@ -2,18 +2,17 @@ package routers
 
 import (
 	"apihut-server/config"
+	. "apihut-server/controller"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func SetupRouter() *gin.Engine {
-	gin.SetMode(config.ShareConf.Mode)
+	gin.SetMode(config.Share.Mode)
 
 	r := gin.New()
 	// 首页
-	r.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "hello")
-	})
+	r.GET("/", HomeHandler)
 	// 文档
 
 	// IP定位（腾讯，高德）
@@ -25,6 +24,9 @@ func SetupRouter() *gin.Engine {
 	// 支持设置默认头像
 
 	// 网课题库
+
+	// 健康检查
+	r.GET("/health", HealthHandler)
 
 	return r
 }
