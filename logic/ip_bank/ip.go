@@ -35,13 +35,18 @@ func GetIP(ip net.IP) (*models.IPBank, error) {
 			continue
 		}
 		// 非数据库来源的，持久化到数据库
-		if i > 0 && ipInfo != nil {
+		if ipInfo != nil {
+			// 从本地数据库中获取的直接返回
+			if i == 0 {
+				return ipInfo, nil
+			}
 			err = mysql.CreateIPBank(ipInfo)
 			if err != nil {
 				logger.L().Error("Save to db", zap.Error(err), zap.String("from", ctrl.Platform().Name()), zap.Any("info", ipInfo))
+				allErr = errors.WithMessagef(err, "Platform: %s,Info: %+v,Err", ctrl.Platform().Name(), ipInfo)
 			}
-			// 持久化失败也返回
-			return ipInfo, errors.WithMessagef(err, "Platform: %s,Info: %+v,Err", ctrl.Platform().Name(), ipInfo)
+			// 持久化成功与否都返回
+			return ipInfo, allErr
 		}
 	}
 	return nil, allErr
