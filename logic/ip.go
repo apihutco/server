@@ -6,7 +6,7 @@ import (
 	"apihut-server/logger"
 	"apihut-server/logic/consts"
 	"apihut-server/models"
-	"errors"
+	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"net"
 )
@@ -22,6 +22,7 @@ func GetIP(ip net.IP) (*models.IPBank, error) {
 	ctrlList[1] = TencentInit(config.Share.Open.Tencent.Key)
 	// ctrlList[2] = GaodeInit(config.Share.Open.Gaode.Key)
 
+	var allErr error
 	// 按序轮询数据源
 	for i := 0; i < len(ctrlList); i++ {
 		if ctrlList[i] == nil {
@@ -30,7 +31,8 @@ func GetIP(ip net.IP) (*models.IPBank, error) {
 		ctrl := ctrlList[i]
 		ipInfo, err := ctrl.GetIP(ip)
 		if err != nil {
-			logger.L().Error("Get ip error", zap.Error(err))
+			logger.L().Error("Get IP", zap.Error(err), zap.String("platform", ctrl.Platform().Name()))
+			allErr = errors.WithMessagef(err, "Platform: %s,Err", ctrl.Platform().Name())
 			continue
 		}
 		// 非数据库来源的，持久化到数据库
@@ -40,8 +42,8 @@ func GetIP(ip net.IP) (*models.IPBank, error) {
 				logger.L().Error("Save to db", zap.Error(err), zap.String("from", ctrl.Platform().Name()), zap.Any("info", ipInfo))
 			}
 			// 持久化失败也返回
-			return ipInfo, err
+			return ipInfo, errors.WithMessagef(err, "Platform: %s,Info: %+v,Err", ctrl.Platform().Name(), ipInfo)
 		}
 	}
-	return nil, errors.New("not found")
+	return nil, allErr
 }

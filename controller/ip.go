@@ -3,10 +3,11 @@ package controller
 import (
 	"apihut-server/logger"
 	"apihut-server/logic"
+	"apihut-server/response"
 	"github.com/gin-gonic/gin"
+	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"net"
-	"net/http"
 )
 
 func IPHandler(c *gin.Context) {
@@ -18,10 +19,10 @@ func IPHandler(c *gin.Context) {
 	ip := net.ParseIP(strIP)
 	info, err := logic.GetIP(ip)
 	if err != nil {
-		c.JSON(http.StatusNotFound, nil)
-		logger.L().Error("IP info not found", zap.Error(err))
+		logger.L().Error("IP not found", zap.Error(err))
+		response.ErrorWithMsg(c, errors.Unwrap(err).Error())
 		return
 	}
 
-	c.JSON(200, info)
+	response.SuccessWithData(c, info)
 }

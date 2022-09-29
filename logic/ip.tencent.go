@@ -71,7 +71,7 @@ func (t *tencent) GetIP(ip net.IP) (*models.IPBank, error) {
 	}
 
 	if lbs.Status != 0 {
-		return nil, errors.New("")
+		return nil, errors.New(lbs.Message)
 	}
 
 	return &models.IPBank{
