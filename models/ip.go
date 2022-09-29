@@ -2,13 +2,12 @@ package models
 
 import (
 	"gorm.io/gorm"
-	"net"
 )
 
 type IPBank struct {
 	gorm.Model
 	// IP
-	IP net.IP
+	IP string
 	// 国家
 	Country string
 	// 省份

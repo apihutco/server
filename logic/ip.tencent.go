@@ -75,7 +75,7 @@ func (t *tencent) GetIP(ip net.IP) (*models.IPBank, error) {
 	}
 
 	return &models.IPBank{
-		IP:       ip,
+		IP:       ip.String(),
 		Country:  lbs.Result.AdInfo.Nation,
 		Province: lbs.Result.AdInfo.Province,
 		City:     lbs.Result.AdInfo.City,
