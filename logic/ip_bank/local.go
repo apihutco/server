@@ -1,4 +1,4 @@
-package logic
+package ip_bank
 
 import (
 	"apihut-server/dao/mysql"
