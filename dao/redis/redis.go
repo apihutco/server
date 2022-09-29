@@ -11,7 +11,7 @@ var client *redis.Client
 
 func Init() (err error) {
 	cfg := config.Share.Redis
-	if !cfg.Enable && config.Share.Site.Mode != gin.DebugMode {
+	if !cfg.Enable && config.Share.Site.Mode == gin.DebugMode {
 		return nil
 	}
 	client = redis.NewClient(&redis.Options{
