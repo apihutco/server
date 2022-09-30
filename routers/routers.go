@@ -23,6 +23,8 @@ func SetupRouter() *gin.Engine {
 	// 哈希头像生成（自有api风格，gravatar风格，https://www.gravatar.com/avatar/HASH）
 	// https://en.gravatar.com/site/implement/images/
 	// 支持设置默认头像
+	r.GET("/avatar", AvatarHandler)
+	r.GET("/avatar/:hash", AvatarHandler)
 
 	// 网课题库
 
