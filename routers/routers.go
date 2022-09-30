@@ -19,6 +19,10 @@ func SetupRouter() *gin.Engine {
 	r.GET("/ip/:ip", IPHandler) // 指定IP
 
 	// 协议测试（get，post，ws）
+	r.GET("/get", GetHandler)
+	r.POST("/post", PostHandler)
+	// r.GET("/ws")
+	// r.GET("/ws/:channel")
 
 	// 哈希头像生成（自有api风格，gravatar风格，https://www.gravatar.com/avatar/HASH）
 	// https://en.gravatar.com/site/implement/images/
