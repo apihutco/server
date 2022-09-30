@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"github.com/spf13/viper"
+	"os"
 	"strconv"
 )
 
@@ -14,6 +15,7 @@ type AppConf struct {
 	*Redis  `mapstructure:"redis"`
 	*Logger `mapstructure:"logger"`
 	*Open   `mapstructure:"open"`
+	*File   `mapstructure:"file"`
 }
 
 type Site struct {
@@ -64,6 +66,13 @@ func Init() error {
 	if err = viper.Unmarshal(&Share); err != nil {
 		return err
 	}
+
+	// 创建目录
+	err = os.MkdirAll(Share.File.Avatar, 0660)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -27,6 +27,9 @@ logger:
   max_age: 12
   max_backups: 12
 
+file:
+  avatar: "./assets/avatar"
+
 open:
   tencent:
     key: ""
