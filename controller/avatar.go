@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/base64"
+	"net/http"
 	"os"
 	"strconv"
 	"time"
@@ -47,11 +48,16 @@ func AvatarHandler(c *gin.Context) {
 	}
 
 	// 按格式返回
-	if req.GetOutput() == consts.JSON {
+	switch req.GetOutput() {
+	case consts.JSON:
 		b := FileToBase64(filePath)
 		response.SuccessWithData(c, gin.H{"avatar": b})
 		return
-	} else {
+	case consts.Base64:
+		b := FileToBase64(filePath)
+		c.String(http.StatusOK, b)
+		return
+	default:
 		c.File(filePath)
 		return
 	}
