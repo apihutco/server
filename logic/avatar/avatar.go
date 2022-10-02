@@ -23,7 +23,8 @@ func NewAvatar(req *models.AvatarReq) (string, error) {
 		return "", err
 	}
 
-	filePath := path.Join(config.Share.File.Avatar, fmt.Sprintf("%s-%d-%d.png", req.GetHash(), req.GetSize(), time.Now().UnixNano()))
+	filePath := getFilePath(req)
+
 	f, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
 	defer func(f *os.File) {
 		_ = f.Close()
@@ -45,4 +46,24 @@ func NewAvatar(req *models.AvatarReq) (string, error) {
 	}
 
 	return filePath, nil
+}
+
+func getFilePath(req *models.AvatarReq) string {
+	ext := req.GetOutput().String()
+	switch req.GetOutput() {
+	case consts.JPG, consts.JPEG:
+		ext = consts.JPEG.String()
+	case consts.SVG:
+		ext = consts.SVG.String()
+	default:
+		ext = consts.PNG.String()
+	}
+
+	return path.Join(config.Share.File.Avatar, fmt.Sprintf(
+		"%s-%d-%d.%s",
+		req.GetHash(),
+		req.GetSize(),
+		time.Now().UnixNano(),
+		ext,
+	))
 }
