@@ -1,6 +1,9 @@
 package controller
 
 import (
+	"strconv"
+	"time"
+
 	"apihut-server/logic/avatar"
 	"apihut-server/logic/consts"
 	"apihut-server/models"
@@ -21,6 +24,14 @@ func AvatarHandler(c *gin.Context) {
 	}
 
 	req := models.NewAvatar(hash)
+
+	// 只要出现random参数，不管值是什么，都开启随机模式
+	if _, has := c.GetQuery("random"); has {
+		hash = strconv.Itoa(int(time.Now().UnixNano()))
+		req.Hash = hash
+		req.Random = true
+	}
+
 	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.ErrorWithMsg(c, err.Error())

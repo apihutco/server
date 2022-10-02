@@ -7,13 +7,13 @@ import (
 // Gravatar: s,d,f,r
 
 type AvatarReq struct {
-	Hash      string        // 哈希
-	Block     int           `form:"block"`     // 块数量
-	Size      int           `form:"size"`      // Gravatar,图像大小
-	S         int           `form:"s"`         // Gravatar,图像大小-缩写
-	UDefault  string        `form:"default"`   // Gravatar,默认图片
-	D         string        `form:"d"`         // Gravatar,默认图片-缩写
-	Random    bool          `from:"random"`    // 随机
+	Hash      string        // 哈希（不受Query参数值控制）
+	Block     int           `form:"block"`   // 块数量
+	Size      int           `form:"size"`    // Gravatar,图像大小
+	S         int           `form:"s"`       // Gravatar,图像大小-缩写
+	UDefault  string        `form:"default"` // Gravatar,默认图片
+	D         string        `form:"d"`       // Gravatar,默认图片-缩写
+	Random    bool          // 随机(不受参数值控制，只要存在random参数，就视为随机模式)
 	Density   int           `form:"density"`   // 密度
 	Namespace string        `form:"namespace"` // 命名空间
 	N         string        `form:"namespace"` // 命名空间-缩写
@@ -27,7 +27,6 @@ func NewAvatar(hash string) AvatarReq {
 	return AvatarReq{
 		Hash:      hash,
 		Size:      0,
-		Random:    false,
 		Density:   1,
 		Namespace: "",
 	}
