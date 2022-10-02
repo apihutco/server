@@ -85,7 +85,10 @@ func (a *AvatarReq) GetOutput() consts.Output {
 }
 
 func (a *AvatarReq) GetQuality() int {
-	return a.Quality
+	if a.Quality != 0 {
+		return a.Quality
+	}
+	return 100
 }
 
 // func (a *AvatarReq) GetPixels() int {
