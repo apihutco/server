@@ -1,37 +1,48 @@
 package avatar
 
 import (
-	"apihut-server/config"
-	"apihut-server/models"
 	"fmt"
-	"github.com/nullrocks/identicon"
 	"os"
 	"path"
 	"time"
+
+	"apihut-server/config"
+	"apihut-server/logic/consts"
+	"apihut-server/models"
+
+	"github.com/nullrocks/identicon"
 )
 
-func NewAvatar(req *models.AvatarReq) error {
-	gen, err := identicon.New(req.GetNamespace(), req.GetSize(), req.GetDensity())
+func NewAvatar(req *models.AvatarReq) (string, error) {
+	gen, err := identicon.New(req.GetNamespace(), req.GetBlock(), req.GetDensity())
 	if err != nil {
-		return err
+		return "", err
 	}
 	ident, err := gen.Draw(req.GetHash())
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	filePath := path.Join(config.Share.File.Avatar, fmt.Sprintf("%d.png", time.Now().UnixNano()))
+	filePath := path.Join(config.Share.File.Avatar, fmt.Sprintf("%s-%d-%d.png", req.GetHash(), req.GetSize(), time.Now().UnixNano()))
 	f, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
 	defer func(f *os.File) {
 		_ = f.Close()
 	}(f)
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	err = ident.Png(32, f)
-	if err != nil {
-		return err
+	switch req.GetOutput() {
+	case consts.JPG, consts.JPEG:
+		err = ident.Jpeg(req.GetSize(), req.GetQuality(), f)
+	case consts.SVG:
+		err = ident.Svg(req.GetSize(), f)
+	default:
+		err = ident.Png(req.GetSize(), f)
 	}
-	return nil
+	if err != nil {
+		return "", err
+	}
+
+	return filePath, nil
 }

@@ -2,8 +2,10 @@ package controller
 
 import (
 	"apihut-server/logic/avatar"
+	"apihut-server/logic/consts"
 	"apihut-server/models"
 	"apihut-server/response"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,12 +26,20 @@ func AvatarHandler(c *gin.Context) {
 		response.ErrorWithMsg(c, err.Error())
 		return
 	}
-	req.SetHash(hash)
 
-	err = avatar.NewAvatar(&req)
+	file, err := avatar.NewAvatar(&req)
 	if err != nil {
 		response.ErrorWithMsg(c, err.Error())
 		return
 	}
-	response.Success(c)
+	// response.Success(c)
+
+	// 按格式返回
+	if req.GetOutput() == consts.JSON {
+		response.Success(c)
+		return
+	} else {
+		c.File(file)
+		return
+	}
 }

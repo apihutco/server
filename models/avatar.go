@@ -1,17 +1,26 @@
 package models
 
+import (
+	"apihut-server/logic/consts"
+)
+
 // Gravatar: s,d,f,r
 
 type AvatarReq struct {
-	Hash      string
-	Size      int    `form:"size"`
-	S         int    `form:"s"` // Gravatar
-	UDefault  string `form:"default"`
-	D         string `form:"d"`         // Gravatar
-	Random    bool   `from:"random"`    // 随机
-	Density   int    `form:"density"`   // 密度
-	Namespace string `form:"namespace"` // 命名空间
-	N         string `form:"namespace"` // 命名空间
+	Hash      string        // 哈希
+	Block     int           `form:"block"`     // 块数量
+	Size      int           `form:"size"`      // Gravatar,图像大小
+	S         int           `form:"s"`         // Gravatar,图像大小-缩写
+	UDefault  string        `form:"default"`   // Gravatar,默认图片
+	D         string        `form:"d"`         // Gravatar,默认图片-缩写
+	Random    bool          `from:"random"`    // 随机
+	Density   int           `form:"density"`   // 密度
+	Namespace string        `form:"namespace"` // 命名空间
+	N         string        `form:"namespace"` // 命名空间-缩写
+	Output    consts.Output `form:"output"`    // 输出格式
+	O         consts.Output `form:"O"`         // 输出格式-简写
+	Quality   int           `form:"quality"`   // 图像质量（仅jpg，jpeg可用）
+	// Pixels    int           `form:"pixels"`    // 图像像素（图片大小）
 }
 
 func NewAvatar(hash string) AvatarReq {
@@ -25,13 +34,13 @@ func NewAvatar(hash string) AvatarReq {
 }
 
 func (a *AvatarReq) GetSize() int {
-	if a.Size != 0 {
+	if a.Size > 0 {
 		return a.Size
 	}
-	if a.S != 0 {
+	if a.S > 0 {
 		return a.S
 	}
-	return 4
+	return 32
 }
 
 func (a *AvatarReq) GetDefault() string {
@@ -50,7 +59,10 @@ func (a *AvatarReq) GetHash() string {
 }
 
 func (a *AvatarReq) GetDensity() int {
-	return a.Density
+	if a.Density > 1 {
+		return a.Density
+	}
+	return 1
 }
 
 func (a *AvatarReq) GetNamespace() string {
@@ -61,4 +73,32 @@ func (a *AvatarReq) GetNamespace() string {
 		return a.N
 	}
 	return "apihut"
+}
+
+func (a *AvatarReq) GetOutput() consts.Output {
+	if len(a.Output) != 0 {
+		return a.Output
+	}
+	if len(a.O) != 0 {
+		return a.O
+	}
+	return "png"
+}
+
+func (a *AvatarReq) GetQuality() int {
+	return a.Quality
+}
+
+// func (a *AvatarReq) GetPixels() int {
+// 	if a.Pixels != 0 {
+// 		return a.Pixels
+// 	}
+// 	return 10
+// }
+
+func (a *AvatarReq) GetBlock() int {
+	if a.Block > 4 {
+		return a.Block
+	}
+	return 4
 }
