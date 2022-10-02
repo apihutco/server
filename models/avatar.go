@@ -21,6 +21,8 @@ type AvatarReq struct {
 	O         consts.Output `form:"O"`         // 输出格式-简写
 	Quality   int           `form:"quality"`   // 图像质量（仅jpg，jpeg可用）
 	// Pixels    int           `form:"pixels"`    // 图像像素（图片大小）
+	BackgroundColor string `form:"backgroundcolor"` // 背景颜色
+	FillColor       string `form:"fillcolor"`       // 填充颜色
 }
 
 func NewAvatar(hash string) AvatarReq {
