@@ -2,9 +2,10 @@ package config
 
 import (
 	"fmt"
-	"github.com/spf13/viper"
 	"os"
 	"strconv"
+
+	"github.com/spf13/viper"
 )
 
 var Share *AppConf
@@ -57,8 +58,8 @@ type Logger struct {
 	MaxBackups int    `mapstructure:"max_backups"`
 }
 
-func Init() error {
-	viper.SetConfigFile("./conf/config.yaml")
+func Init(f string) error {
+	viper.SetConfigFile(f)
 	err := viper.ReadInConfig()
 	if err != nil {
 		return err

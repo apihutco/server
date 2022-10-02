@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+
 	"apihut-server/config"
 	"apihut-server/dao/mysql"
 	"apihut-server/dao/redis"
@@ -8,10 +10,18 @@ import (
 	"apihut-server/routers"
 )
 
+var configFile string
+
+func init() {
+	flag.StringVar(&configFile, "f", "./conf/config.yaml", "Config file")
+}
+
 func main() {
+	flag.Parse()
+
 	var err error
 	// 初始化配置
-	err = config.Init()
+	err = config.Init(configFile)
 	if err != nil {
 		panic(err)
 	}
