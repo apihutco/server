@@ -21,15 +21,15 @@ type gaode struct {
 }
 
 type gaodeRsp struct {
-	Status   string `json:"status,omitempty"`
-	Info     string `json:"info,omitempty"`
-	Infocode string `json:"infocode,omitempty"`
-	Country  string `json:"country"`
-	Province string `json:"province"`
-	City     string `json:"city"`
-	District string `json:"district"`
-	ISP      string `json:"isp"`
-	Location string `json:"location"`
+	Status   string `json:"status"`   // 返回结果状态值
+	Info     string `json:"info"`     // 返回状态说明
+	Infocode string `json:"infocode"` // 状态码
+	Country  string `json:"country"`  // 国家
+	Province string `json:"province"` // 省份
+	City     string `json:"city"`     // 城市
+	District string `json:"district"` // 区
+	ISP      string `json:"isp"`      // 运营商
+	Location string `json:"location"` // 经纬度
 	IP       string `json:"ip"`
 }
 
@@ -69,7 +69,7 @@ func (g *gaode) GetIP(ip net.IP) (*models.IPBank, error) {
 		return nil, err
 	}
 
-	if lbs.Status != "1" {
+	if lbs.Status != "1" || lbs.Infocode != "10000" || lbs.Info != "OK" {
 		return nil, errors.New(lbs.Info)
 	}
 
