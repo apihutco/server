@@ -1,9 +1,6 @@
 package ip_bank
 
 import (
-	"apihut-server/config"
-	"apihut-server/logic/consts"
-	"apihut-server/models"
 	"encoding/json"
 	"io"
 	"io/ioutil"
@@ -11,6 +8,12 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"apihut-server/config"
+	"apihut-server/logic/consts"
+	"apihut-server/models"
+
+	"github.com/pkg/errors"
 )
 
 type gaode struct {
@@ -64,6 +67,10 @@ func (g *gaode) GetIP(ip net.IP) (*models.IPBank, error) {
 	lbs := &gaodeRsp{}
 	if err = json.Unmarshal(body, lbs); err != nil {
 		return nil, err
+	}
+
+	if lbs.Status != "1" {
+		return nil, errors.New(lbs.Info)
 	}
 
 	return &models.IPBank{

@@ -1,8 +1,9 @@
 package response
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Code uint64
@@ -45,6 +46,11 @@ func ErrorWithMsg(c *gin.Context, msg string) {
 func ErrorWithMsgAndData(c *gin.Context, msg string, data interface{}) {
 	code := CodeError
 	JSON(c, code, msg, data)
+}
+
+func ErrorWithData(c *gin.Context, data interface{}) {
+	code := CodeError
+	JSON(c, code, code.Msg(), data)
 }
 
 func JSON(c *gin.Context, code Code, msg string, data interface{}) {
