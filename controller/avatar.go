@@ -16,7 +16,7 @@ import (
 )
 
 /*
-参考文档：
+兼容 Gravatar，参考文档：
 https://en.gravatar.com/site/implement/images/
 */
 

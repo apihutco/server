@@ -3,6 +3,7 @@ package routers
 import (
 	"apihut-server/config"
 	. "apihut-server/controller"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,23 +11,22 @@ func SetupRouter() *gin.Engine {
 	gin.SetMode(config.Share.Mode)
 
 	r := gin.New()
+	r.StaticFile("favicon.ico", "./assets/favicon.ico")
+
 	// 首页
 	r.GET("/", HomeHandler)
-	// 文档
 
-	// IP定位（腾讯，高德）
+	// IP定位
 	r.GET("/ip", IPHandler)     // 请求来源IP
 	r.GET("/ip/:ip", IPHandler) // 指定IP
 
 	// 协议测试（get，post，ws）
 	r.GET("/get", GetHandler)
 	r.POST("/post", PostHandler)
-	// r.GET("/ws")
-	// r.GET("/ws/:channel")
+	r.GET("/ws", WebSocketHandler)
+	r.GET("/ws/:channel", WebSocketWithChannel)
 
-	// 哈希头像生成（自有api风格，gravatar风格，https://www.gravatar.com/avatar/HASH）
-	// https://en.gravatar.com/site/implement/images/
-	// 支持设置默认头像
+	// 哈希头像生成
 	r.GET("/avatar", AvatarHandler)
 	r.GET("/avatar/:hash", AvatarHandler)
 
