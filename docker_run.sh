@@ -1,0 +1,1 @@
+docker run apihut-server:dev
