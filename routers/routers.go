@@ -30,7 +30,9 @@ func SetupRouter() *gin.Engine {
 	r.GET("/ws", func(c *gin.Context) {
 		ws.Handler(hub, c)
 	})
-	r.GET("/ws/:channel", WebSocketWithChannel)
+	r.GET("/ws/:channel", func(c *gin.Context) {
+		ws.Handler(hub, c)
+	})
 
 	// 哈希头像生成
 	r.GET("/avatar", AvatarHandler)

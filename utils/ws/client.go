@@ -36,14 +36,15 @@ var upgrader = websocket.Upgrader{
 }
 
 type Client struct {
-	hub  *Hub
-	conn *websocket.Conn
-	send chan []byte
+	hub     *Hub
+	conn    *websocket.Conn
+	send    chan []byte
+	channel string
 }
 
 func (c *Client) Read() {
 	defer func() {
-		c.hub.unregister <- c
+		c.hub.Unregister(c)
 		c.conn.Close()
 	}()
 
@@ -63,7 +64,10 @@ func (c *Client) Read() {
 			break
 		}
 		msg = bytes.TrimSpace(bytes.Replace(msg, newline, space, -1))
-		c.hub.broadcast <- msg
+		c.hub.DoBroadcast(&Broadcast{
+			msg:    msg,
+			client: c,
+		})
 	}
 }
 
@@ -114,8 +118,10 @@ func Handler(hub *Hub, c *gin.Context) {
 		return
 	}
 
-	client := &Client{hub: hub, conn: conn, send: make(chan []byte)}
-	client.hub.register <- client
+	channel := c.Param("channel")
+
+	client := &Client{hub: hub, conn: conn, send: make(chan []byte), channel: channel}
+	client.hub.Register(client)
 
 	go client.Write()
 	go client.Read()
