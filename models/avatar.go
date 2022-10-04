@@ -7,19 +7,19 @@ import (
 // Gravatar: s,d,f,r
 
 type AvatarReq struct {
-	Hash      string        // 哈希（不受Query参数值控制）
-	Block     int           `form:"block"`   // 块数量
-	Size      int           `form:"size"`    // Gravatar,图像大小
-	S         int           `form:"s"`       // Gravatar,图像大小-缩写
-	UDefault  string        `form:"default"` // Gravatar,默认图片
-	D         string        `form:"d"`       // Gravatar,默认图片-缩写
-	Random    bool          // 随机(不受参数值控制，只要存在random参数，就视为随机模式)
-	Density   int           `form:"density"`   // 密度
-	Namespace string        `form:"namespace"` // 命名空间
-	N         string        `form:"namespace"` // 命名空间-缩写
-	Output    consts.Output `form:"output"`    // 输出格式
-	O         consts.Output `form:"O"`         // 输出格式-简写
-	Quality   int           `form:"quality"`   // 图像质量（仅jpg，jpeg可用）
+	Hash      string            // 哈希（不受Query参数值控制）
+	Block     int               `form:"block"`   // 块数量
+	Size      int               `form:"size"`    // Gravatar,图像大小
+	S         int               `form:"s"`       // Gravatar,图像大小-缩写
+	UDefault  string            `form:"default"` // Gravatar,默认图片
+	D         string            `form:"d"`       // Gravatar,默认图片-缩写
+	Random    bool              // 随机(不受参数值控制，只要存在random参数，就视为随机模式)
+	Density   int               `form:"density"`   // 密度
+	Namespace string            `form:"namespace"` // 命名空间
+	N         string            `form:"namespace"` // 命名空间-缩写
+	Output    consts.OutputType `form:"output"`    // 输出格式
+	O         consts.OutputType `form:"O"`         // 输出格式-简写
+	Quality   int               `form:"quality"`   // 图像质量（仅jpg，jpeg可用）
 	// Pixels    int           `form:"pixels"`    // 图像像素（图片大小）
 	BackgroundColor string `form:"backgroundcolor"` // 背景颜色
 	FillColor       string `form:"fillcolor"`       // 填充颜色
@@ -76,7 +76,7 @@ func (a *AvatarReq) GetNamespace() string {
 	return "apihut"
 }
 
-func (a *AvatarReq) GetOutput() consts.Output {
+func (a *AvatarReq) GetOutput() consts.OutputType {
 	if len(a.Output) != 0 {
 		return a.Output
 	}

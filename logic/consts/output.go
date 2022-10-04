@@ -1,16 +1,24 @@
 package consts
 
-type Output string
-
-const (
-	JSON   Output = "json"
-	PNG    Output = "png"
-	JPG    Output = "jpg"
-	JPEG   Output = "jpeg"
-	SVG    Output = "svg"
-	Base64 Output = "base64"
+import (
+	"strings"
 )
 
-func (o Output) String() string {
+type OutputType string
+
+const (
+	JSON   OutputType = "json"
+	PNG    OutputType = "png"
+	JPG    OutputType = "jpg"
+	JPEG   OutputType = "jpeg"
+	SVG    OutputType = "svg"
+	Base64 OutputType = "base64"
+)
+
+func (o OutputType) String() string {
 	return string(o)
+}
+
+func CheckOutputType(in string, ot OutputType) bool {
+	return strings.ToLower(in) == ot.String()
 }
