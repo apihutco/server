@@ -3,6 +3,7 @@ package routers
 import (
 	"apihut-server/config"
 	. "apihut-server/controller"
+	"apihut-server/utils/ws"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,7 +24,12 @@ func SetupRouter() *gin.Engine {
 	// 协议测试（get，post，ws）
 	r.GET("/get", GetHandler)
 	r.POST("/post", PostHandler)
-	r.GET("/ws", WebSocketHandler)
+
+	hub := ws.NewHub()
+	go hub.Run()
+	r.GET("/ws", func(c *gin.Context) {
+		ws.Handler(hub, c)
+	})
 	r.GET("/ws/:channel", WebSocketWithChannel)
 
 	// 哈希头像生成
