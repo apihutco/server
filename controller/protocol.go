@@ -1,15 +1,30 @@
 package controller
 
 import (
-	"apihut-server/response"
 	"encoding/json"
-	"github.com/gin-gonic/gin"
 	"io"
 	"io/ioutil"
+	"net/http"
+
+	"apihut-server/logic/consts"
+	"apihut-server/logic/protocol"
+	"apihut-server/response"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetHandler(c *gin.Context) {
-	response.SuccessWithData(c, gin.H{"hello": "world"})
+
+	output := c.Param("output")
+
+	switch output {
+	case consts.CaseOutputType(output, consts.Text):
+		str := protocol.ParamsToString(c.Request)
+		c.String(http.StatusOK, str)
+	default:
+		res := protocol.ParamsToJSON(c.Request)
+		response.SuccessWithData(c, res)
+	}
 }
 
 func PostHandler(c *gin.Context) {

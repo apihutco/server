@@ -13,12 +13,24 @@ const (
 	JPEG   OutputType = "jpeg"
 	SVG    OutputType = "svg"
 	Base64 OutputType = "base64"
+	Text   OutputType = "text"
 )
 
 func (o OutputType) String() string {
 	return string(o)
 }
 
-func CheckOutputType(in string, ot OutputType) bool {
+func IsOutputType(in string, ot OutputType) bool {
 	return strings.ToLower(in) == ot.String()
+}
+
+func CaseOutputType(in string, ot OutputType) string {
+	if IsOutputType(in, ot) {
+		return in
+	}
+	return ""
+}
+
+func ToOutputType(in string) OutputType {
+	return OutputType(in)
 }
