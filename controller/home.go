@@ -1,12 +1,15 @@
 package controller
 
 import (
-	"apihut-server/logger"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
-	"time"
 )
 
 func HomeHandler(c *gin.Context) {
-	logger.L().Info("home handler", zap.String("time", time.Now().String()))
+	c.String(http.StatusOK, "Home")
+}
+
+func NotFound(c *gin.Context) {
+	c.String(http.StatusOK, "Not found")
 }

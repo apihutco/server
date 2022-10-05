@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net"
+	"net/http"
 
 	"apihut-server/logger"
 	"apihut-server/logic/ip_bank"
@@ -11,7 +12,7 @@ import (
 	"go.uber.org/zap"
 )
 
-func IPHandler(c *gin.Context) {
+func IPJSONHandler(c *gin.Context) {
 	strIP := c.Param("ip")
 	if len(strIP) == 0 {
 		strIP = c.ClientIP()
@@ -31,4 +32,8 @@ func IPHandler(c *gin.Context) {
 	}
 
 	response.SuccessWithData(c, info)
+}
+
+func IPTextHandler(c *gin.Context) {
+	c.String(http.StatusOK, c.ClientIP())
 }
