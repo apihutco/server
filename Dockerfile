@@ -18,7 +18,8 @@ FROM alpine
 
 WORKDIR /app
 
-RUN apk --no-cache add tzdata ca-certificates libc6-compat libgcc libstdc++
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories && \
+    apk --no-cache add tzdata ca-certificates libc6-compat libgcc libstdc++
 
 COPY --from=builder /build/bin/apihut .
 COPY ./conf/config.sample.yaml ./conf/config.yaml
