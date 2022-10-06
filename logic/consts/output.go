@@ -7,13 +7,14 @@ import (
 type OutputType string
 
 const (
-	JSON   OutputType = "json"
-	PNG    OutputType = "png"
-	JPG    OutputType = "jpg"
-	JPEG   OutputType = "jpeg"
-	SVG    OutputType = "svg"
-	Base64 OutputType = "base64"
-	Text   OutputType = "text"
+	Default OutputType = "default"
+	JSON    OutputType = "json"
+	PNG     OutputType = "png"
+	JPG     OutputType = "jpg"
+	JPEG    OutputType = "jpeg"
+	SVG     OutputType = "svg"
+	Base64  OutputType = "base64"
+	Text    OutputType = "text"
 )
 
 func (o OutputType) String() string {
@@ -28,7 +29,7 @@ func CaseOutputType(in string, ot OutputType) string {
 	if IsOutputType(in, ot) {
 		return in
 	}
-	return ""
+	return Default.String()
 }
 
 func ToOutputType(in string) OutputType {
