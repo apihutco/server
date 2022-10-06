@@ -5,13 +5,14 @@ ENV GO111MODULE=on \
     GOOS=linux \
     GOARCH=amd64
 
-RUN apk --no-cache add build-base
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories && \
+    apk --no-cache add build-base
 
 WORKDIR /build
 
 COPY . .
 
-RUN go build -o ./bin/apihut .
+RUN export GOPROXY=https://proxy.golang.com.cn,direct && go build -o ./bin/apihut .
 
 FROM alpine
 
