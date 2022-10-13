@@ -42,8 +42,7 @@ ingress:
   className: ""
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares: default-redirectscheme@kubernetescrd # 强制 https 中间件
-    kubernetes.io/ingress.class: "traefik"
-    cert-manager.io/cluster-issuer: letsencrypt-staging # 测试环境
+    cert-manager.io/cluster-issuer: letsencrypt-prod # 测试环境
   hosts:
     - host: apihut.co
       paths:

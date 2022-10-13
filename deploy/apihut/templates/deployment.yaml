@@ -44,6 +44,8 @@ spec:
             - mountPath: logs
               name: data
               subPath: logs
+            - mountPath: conf/config.yaml
+              name: config
           livenessProbe:
             httpGet:
               path: /
@@ -58,6 +60,9 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "apihut.fullname" . }}
+        - name: config
+          configMap:
+            name: {{ include "apihut.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
