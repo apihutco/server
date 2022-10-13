@@ -46,6 +46,7 @@ spec:
               subPath: logs
             - mountPath: conf/config.yaml
               name: config
+              subPath: config.yaml
           livenessProbe:
             httpGet:
               path: /
