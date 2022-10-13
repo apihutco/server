@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "apihut.labels" . | nindent 4 }}
 data:
-  config: |
+  config.yaml: |
     site:
       mode: debug # debug,release
       port: 8080
