@@ -35,8 +35,15 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: {{ .Values.image.port }}
               protocol: TCP
+          volumeMounts:
+            - mountPath: assets
+              name: data
+              subPath: assets
+            - mountPath: logs
+              name: data
+              subPath: logs
           livenessProbe:
             httpGet:
               path: /
@@ -47,6 +54,10 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "apihut.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

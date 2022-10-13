@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "apihut.fullname" . }}
+  labels:
+    {{- include "apihut.labels" . | nindent 4 }}
+data:
+  config: |
+    site:
+      mode: debug # debug,release
+      port: 8080
+
+    db:
+      driver: sqlite # sqlite,mysql
+      mysql:
+        host: 127.0.0.1
+        user: apihut
+        password: 12346
+        port: 3306
+        db_name: apihut
+      sqlite:
+        name: test.db
+
+    redis:
+      enable: false
+      host: 127.0.0.1
+      port: 6379
+      password: "123456"
+      db: 0
+
+    logger:
+      level: debug
+      file_name: ./logs/apihut.log
+      max_size: 12
+      max_age: 12
+      max_backups: 12
+
+    file:
+      avatar: "./assets/avatar"
+
+    open:
+      tencent:
+        key: ""
+      gaode:
+        key: ""
