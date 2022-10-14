@@ -3,18 +3,6 @@ type: kubernetes
 name: build
 
 steps:
-  - name: restore-cache
-    image: drillster/drone-volume-cache
-    settings:
-      restore: true
-      mount:
-        - /docker_temp
-    volumes:
-      - name: cache
-        path: /cache
-      - name: temp
-        path: /docker_temp
-
   - name: docker build & push
     image: plugins/docker
     settings:
@@ -25,27 +13,3 @@ steps:
       repo: harbor.northes.co/apihut/server
       tags: latest
       registry: harbor.northes.co
-      storage_path: /docker_temp
-    volumes:
-      - name: temp
-        path: /docker_temp
-
-  - name: rebuild-cache
-    image: drillster/drone-volume-cache
-    settings:
-      rebuild: true
-      mount:
-        - /docker_temp
-    volumes:
-      - name: cache
-        path: /cache
-      - name: temp
-        path: /docker_temp
-
-volumes:
-  - name: cache
-    claim:
-      name: drone-ci-go-pkg-cache
-      read_only: false
-  - name: temp
-    temp: {}
