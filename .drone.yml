@@ -8,10 +8,12 @@ steps:
     settings:
       restore: true
       mount:
-        - /go/pkg
+        - /docker_temp
     volumes:
       - name: cache
         path: /cache
+      - name: temp
+        path: /docker_temp
 
   - name: docker build & push
     image: plugins/docker
@@ -23,20 +25,27 @@ steps:
       repo: harbor.northes.co/apihut/server
       tags: latest
       registry: harbor.northes.co
+      storage_path: /docker_temp
+    volumes:
+      - name: temp
+        path: /docker_temp
 
   - name: rebuild-cache
     image: drillster/drone-volume-cache
     settings:
       rebuild: true
       mount:
-        - /go/pkg
+        - /docker_temp
     volumes:
       - name: cache
         path: /cache
-
+      - name: temp
+        path: /docker_temp
 
 volumes:
   - name: cache
     claim:
       name: drone-ci-go-pkg-cache
       read_only: false
+  - name: temp
+    temp: {}
