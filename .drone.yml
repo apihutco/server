@@ -3,7 +3,7 @@ type: kubernetes
 name: build
 
 steps:
-  - name: \[main] docker build & push
+  - name: "[main] docker build & push"
     image: plugins/docker
     settings:
       username:
@@ -17,7 +17,7 @@ steps:
       branch:
         - main
 
-  - name: \[dev] docker build & push
+  - name: "[dev] docker build & push"
     image: plugins/docker
     settings:
       username:
