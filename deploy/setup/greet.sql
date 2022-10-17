@@ -1,9 +1,9 @@
 INSERT INTO greets (created_at,updated_at,sentence,author,tags) values
-(datetime(CURRENT_TIMESTAMP,'localtime'),datetime(CURRENT_TIMESTAMP,'localtime'),'早安！美好的假日开始了😄','MI',''),
-(datetime(CURRENT_TIMESTAMP,'localtime'),datetime(CURRENT_TIMESTAMP,'localtime'),'周末苦短，及时行乐😎','MI',''),
+(datetime(CURRENT_TIMESTAMP,'localtime'),datetime(CURRENT_TIMESTAMP,'localtime'),'早安！美好的假日开始了😄','MI','凌晨,早上,星期六,星期天'),
+(datetime(CURRENT_TIMESTAMP,'localtime'),datetime(CURRENT_TIMESTAMP,'localtime'),'周末苦短，及时行乐😎','MI','星期六,星期天,星期五'),
 (datetime(CURRENT_TIMESTAMP,'localtime'),datetime(CURRENT_TIMESTAMP,'localtime'),'执着于理想，纯粹于当下🤗','MI',''),
-(datetime(CURRENT_TIMESTAMP,'localtime'),datetime(CURRENT_TIMESTAMP,'localtime'),'今天的世界打烊了，晚安🌙','MI',''),
-(datetime(CURRENT_TIMESTAMP,'localtime'),datetime(CURRENT_TIMESTAMP,'localtime'),'💪撸起袖子加油干','MI',''),
+(datetime(CURRENT_TIMESTAMP,'localtime'),datetime(CURRENT_TIMESTAMP,'localtime'),'今天的世界打烊了，晚安🌙','MI','晚上,深夜'),
+(datetime(CURRENT_TIMESTAMP,'localtime'),datetime(CURRENT_TIMESTAMP,'localtime'),'💪撸起袖子加油干','MI','凌晨,早上'),
 (datetime(CURRENT_TIMESTAMP,'localtime'),datetime(CURRENT_TIMESTAMP,'localtime'),'我们的征程是星辰大海','MI',''),
 (datetime(CURRENT_TIMESTAMP,'localtime'),datetime(CURRENT_TIMESTAMP,'localtime'),'做世界的水手，奔赴所有港口','MI',''),
 (datetime(CURRENT_TIMESTAMP,'localtime'),datetime(CURRENT_TIMESTAMP,'localtime'),'保持热爱，奔赴山海','MI',''),
