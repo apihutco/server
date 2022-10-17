@@ -6,6 +6,8 @@ import (
 
 type OutputType string
 
+// OutputType:
+
 const (
 	Default OutputType = "default"
 	JSON    OutputType = "json"

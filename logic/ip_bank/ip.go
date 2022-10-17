@@ -13,7 +13,7 @@ import (
 
 type IIPCtrl interface {
 	GetIP(net.IP) (*models.IPBank, error)
-	Platform() consts.PlatformID
+	Platform() consts.PlatformCode
 }
 
 func GetIP(ip net.IP) (*models.IPBank, error) {

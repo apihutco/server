@@ -1,20 +1,22 @@
 package consts
 
-type PlatformID uint8
+type PlatformCode uint8
+
+// Platform：本地 腾讯 高德
 
 const (
-	Local PlatformID = iota + 1
+	Local PlatformCode = iota + 1
 	Tencent
 	Gaode
 )
 
-var PlatformName = map[PlatformID]string{
+var PlatformName = map[PlatformCode]string{
 	Local:   "local",
 	Tencent: "tencent",
 	Gaode:   "gaode",
 }
 
-func (p PlatformID) Name() string {
+func (p PlatformCode) Name() string {
 	if pl, ok := PlatformName[p]; ok {
 		return pl
 	}

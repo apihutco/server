@@ -13,10 +13,6 @@ import (
 )
 
 func IPJSONHandler(c *gin.Context) {
-	for k, v := range c.Request.Header {
-		logger.L().Info("请求头", zap.Any(k, v))
-	}
-
 	strIP := c.Param("ip")
 	if len(strIP) == 0 {
 		strIP = c.ClientIP()

@@ -18,6 +18,6 @@ func (l *local) GetIP(ip net.IP) (*models.IPBank, error) {
 	return mysql.GetIPBank(ip)
 }
 
-func (l *local) Platform() consts.PlatformID {
+func (l *local) Platform() consts.PlatformCode {
 	return consts.Local
 }

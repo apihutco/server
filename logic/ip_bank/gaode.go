@@ -85,6 +85,6 @@ func (g *gaode) GetIP(ip net.IP) (*models.IPBank, error) {
 	}, nil
 }
 
-func (g *gaode) Platform() consts.PlatformID {
+func (g *gaode) Platform() consts.PlatformCode {
 	return consts.Gaode
 }
