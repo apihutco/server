@@ -3,7 +3,7 @@ type: kubernetes
 name: build
 
 steps:
-  - name: docker build & push
+  - name: "[main] docker build & push"
     image: plugins/docker
     settings:
       username:
@@ -13,3 +13,25 @@ steps:
       repo: harbor.northes.co/apihut/server
       tags: latest
       registry: harbor.northes.co
+    when:
+      branch:
+        - main
+
+  - name: "[dev] docker build & push"
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: harbor.northes.co/apihut/server
+      tags: dev
+      registry: harbor.northes.co
+    when:
+      branch:
+        - dev
+
+trigger:
+  branch:
+    - main
+    - dev
