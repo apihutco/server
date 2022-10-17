@@ -17,6 +17,7 @@ type AppConf struct {
 	*Logger `mapstructure:"logger"`
 	*Open   `mapstructure:"open"`
 	*File   `mapstructure:"file"`
+	*Bleve  `mapstructure:"bleve"`
 }
 
 type Site struct {
