@@ -19,6 +19,9 @@ func Init() (err error) {
 		db, err = gorm.Open(mysql.Open(""), &gorm.Config{})
 	}
 
-	err = db.AutoMigrate(&models.IPBank{})
+	err = db.AutoMigrate(
+		&models.IPBank{},
+		&models.Greet{},
+	)
 	return err
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"apihut-server/dao/bleve"
 	"flag"
 
 	"apihut-server/config"
@@ -20,6 +21,7 @@ func main() {
 	flag.Parse()
 
 	var err error
+
 	// 初始化配置
 	err = config.Init(configFile)
 	if err != nil {
@@ -39,6 +41,11 @@ func main() {
 	}
 	// 初始化Redis
 	err = redis.Init()
+	if err != nil {
+		panic(err)
+	}
+	// 初始化全文索引
+	err = bleve.Init(config.Share.Bleve.Index)
 	if err != nil {
 		panic(err)
 	}
