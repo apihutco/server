@@ -48,6 +48,11 @@ func SetupRouter() *gin.Engine {
 		r.GET("/avatar/:hash", AvatarHandler)
 	}
 
+	// 一句招呼
+	{
+		r.GET("/greet", GreetHandler)
+	}
+
 	// 健康检查
 	r.GET("/health", HealthHandler)
 	// 无匹配
