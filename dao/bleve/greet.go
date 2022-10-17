@@ -3,13 +3,16 @@ package bleve
 import (
 	"apihut-server/models"
 	"github.com/blevesearch/bleve/v2"
+	uquery "github.com/blevesearch/bleve/v2/search/query"
 	"github.com/mitchellh/mapstructure"
 )
 
 func SearchGreet(str string) ([]*models.Greet, error) {
 	query := bleve.NewMatchQuery(str)
+	query.SetOperator(uquery.MatchQueryOperatorAnd)
 	search := bleve.NewSearchRequest(query)
-	search.Size = 1
+	// search.Size = 1
+	// search.Fields = []string{"sentence", "author", "tags"}
 	search.Fields = []string{"sentence"}
 	rsp, err := i.greet.Search(search)
 	if err != nil {

@@ -38,9 +38,9 @@ func Init(indexPath string) error {
 	i.greet = greetIndex
 
 	// 同步索引
-	// if err = migrate(); err != nil {
-	// 	return err
-	// }
+	if err = migrate(); err != nil {
+		return err
+	}
 
 	return nil
 }

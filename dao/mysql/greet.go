@@ -19,3 +19,7 @@ func GetGreetList() ([]*models.Greet, error) {
 	err := db.Find(&ls).Error
 	return ls, err
 }
+
+func UpdateGreet(g *models.Greet) error {
+	return db.Where("id", g.ID).Updates(&g).Error
+}
