@@ -13,3 +13,9 @@
 
 ### 数据迁移
 1. 数据库迁移完成后，运行 `deploy > setup ` 下的所有 SQL 文件插入数据
+
+
+### 构建
+```shell
+go build -o app -ldflags "-X 'main.version=0.1' -X 'main.buildTime=2022-10-20 20:58'" .
+```
