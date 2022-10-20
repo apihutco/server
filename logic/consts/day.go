@@ -20,7 +20,7 @@ const (
 )
 
 var dayMap = map[DayCode]string{
-	DayDefault:   "通用",
+	DayDefault:   DefaultCode.CN(),
 	DayMonday:    "星期一",
 	DayTuesday:   "星期二",
 	DayWednesday: "星期三",

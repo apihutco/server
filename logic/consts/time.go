@@ -20,7 +20,7 @@ const (
 )
 
 var timeMap = map[TimeCode]string{
-	TimeDefault:      "通用",
+	TimeDefault:      DefaultCode.CN(),
 	TimeEarlyMorning: "凌晨",
 	TimeMorning:      "早上",
 	TimeNoon:         "中午",

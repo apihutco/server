@@ -8,8 +8,8 @@ type OutputType string
 
 // OutputType:
 
-const (
-	Default OutputType = "default"
+var (
+	Default            = OutputType(DefaultCode.EN())
 	JSON    OutputType = "json"
 	PNG     OutputType = "png"
 	JPG     OutputType = "jpg"

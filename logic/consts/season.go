@@ -17,7 +17,7 @@ const (
 )
 
 var seasonMap = map[SeasonCode]string{
-	SeasonDefault: "通用",
+	SeasonDefault: DefaultCode.CN(),
 	SeasonSpring:  "春天",
 	SeasonSummer:  "夏天",
 	SeasonAutumn:  "秋天",
