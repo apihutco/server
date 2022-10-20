@@ -1,18 +1,22 @@
 package consts
 
+import (
+	"time"
+)
+
 type DayCode int
 
 // Day：星期一 星期二 星期四 星期五 星期六 星期天
 
 const (
-	DayDefault   DayCode = iota
-	DayMonday    DayCode = 1
-	DayTuesday   DayCode = 2
-	DayWednesday DayCode = 3
-	DayThursday  DayCode = 4
-	DayFriday    DayCode = 5
-	DaySaturday  DayCode = 6
-	DaySunday    DayCode = 7
+	DayDefault DayCode = iota
+	DayMonday
+	DayTuesday
+	DayWednesday
+	DayThursday
+	DayFriday
+	DaySaturday
+	DaySunday
 )
 
 var dayMap = map[DayCode]string{
@@ -29,4 +33,25 @@ var dayMap = map[DayCode]string{
 // 换取星期几文字
 func (d DayCode) String() string {
 	return dayMap[d]
+}
+
+func GetDayCode() DayCode {
+	switch time.Now().Weekday() {
+	case time.Sunday:
+		return DaySunday
+	case time.Monday:
+		return DayMonday
+	case time.Tuesday:
+		return DayTuesday
+	case time.Wednesday:
+		return DayWednesday
+	case time.Thursday:
+		return DayThursday
+	case time.Friday:
+		return DayFriday
+	case time.Saturday:
+		return DaySaturday
+	default:
+		return DayDefault
+	}
 }

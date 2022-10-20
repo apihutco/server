@@ -1,5 +1,9 @@
 package consts
 
+import (
+	"time"
+)
+
 type SeasonCode int
 
 // Season: 春 夏 秋 冬
@@ -22,4 +26,20 @@ var seasonMap = map[SeasonCode]string{
 
 func (s SeasonCode) String() string {
 	return seasonMap[s]
+}
+
+func GetSeasonCode() SeasonCode {
+	m := time.Now().Month()
+	switch {
+	case m < 3 || m == 12:
+		return SeasonWinter
+	case m < 6:
+		return SeasonSpring
+	case m < 9:
+		return SeasonSummer
+	case m < 12:
+		return SeasonAutumn
+	default:
+		return SeasonDefault
+	}
 }

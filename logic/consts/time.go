@@ -1,5 +1,9 @@
 package consts
 
+import (
+	"time"
+)
+
 type TimeCode int
 
 // Time：通用 凌晨 早晨 中午 下午 傍晚 晚上  深夜
@@ -29,4 +33,26 @@ var timeMap = map[TimeCode]string{
 // 换取时间段文字
 func (c TimeCode) String() string {
 	return timeMap[c]
+}
+
+func GetTimeCode() TimeCode {
+	hour := time.Now().Hour()
+	switch {
+	case hour < 4:
+		return TimeLateNight
+	case hour < 6:
+		return TimeEarlyMorning
+	case hour < 10:
+		return TimeMorning
+	case hour < 13:
+		return TimeNoon
+	case hour < 17:
+		return TimeAfternoon
+	case hour < 20:
+		return TimeEvening
+	case hour < 24:
+		return TimeNight
+	default:
+		return TimeDefault
+	}
 }
