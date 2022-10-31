@@ -13,7 +13,7 @@ func SetupRouter() *gin.Engine {
 	gin.SetMode(config.Share.Mode)
 
 	r := gin.New()
-	r.StaticFile("favicon.ico", "./assets/favicon.ico")
+	r.StaticFile("favicon.ico", "./static/favicon.ico")
 	r.Use(middleware.Logger())
 
 	// 首页
