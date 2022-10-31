@@ -3,7 +3,6 @@ package redis
 import (
 	"apihut-server/config"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
 )
 
@@ -11,7 +10,7 @@ var client *redis.Client
 
 func Init() (err error) {
 	cfg := config.Share.Redis
-	if !cfg.Enable && config.Share.Site.Mode == gin.DebugMode {
+	if !cfg.Enable {
 		return nil
 	}
 	client = redis.NewClient(&redis.Options{
