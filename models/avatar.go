@@ -22,7 +22,9 @@ type AvatarReq struct {
 	Quality   int               `form:"quality"`   // 图像质量（仅jpg，jpeg可用）
 	// Pixels    int           `form:"pixels"`    // 图像像素（图片大小）
 	BackgroundColor string `form:"backgroundcolor"` // 背景颜色
+	BGColor         string `form:"bgcolor"`         // 背景颜色-缩写
 	FillColor       string `form:"fillcolor"`       // 填充颜色
+	FColor          string `form:"fcolor"`          // 填充颜色-缩写
 }
 
 func NewAvatar(hash string) AvatarReq {
@@ -105,4 +107,18 @@ func (a *AvatarReq) GetBlock() int {
 		return a.Block
 	}
 	return 4
+}
+
+func (a *AvatarReq) GetBackgroundColor() string {
+	if len(a.BackgroundColor) > 0 {
+		return a.BackgroundColor
+	}
+	return a.BGColor
+}
+
+func (a *AvatarReq) GetFillColor() string {
+	if len(a.FillColor) > 0 {
+		return a.FillColor
+	}
+	return a.FColor
 }

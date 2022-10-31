@@ -23,13 +23,13 @@ func NewAvatar(req *models.AvatarReq) (string, error) {
 		req.GetBlock(),
 		req.GetDensity(),
 		identicon.SetBackgroundColorFunction(func(cb []byte, fc color.Color) color.Color {
-			if len(req.BackgroundColor) != 0 {
+			if len(req.GetBackgroundColor()) != 0 {
 				// 透明
-				if req.BackgroundColor == consts.ColorTransparent.String() {
+				if req.GetBackgroundColor() == consts.ColorTransparent.String() {
 					return color.Transparent
 				}
 				// 自定义背景颜色
-				backgroundColor, err := hexToRGBA(req.BackgroundColor)
+				backgroundColor, err := hexToRGBA(req.GetBackgroundColor())
 				if err != nil {
 					return defaultBackgroundColor()
 				}
@@ -40,8 +40,8 @@ func NewAvatar(req *models.AvatarReq) (string, error) {
 		}),
 		identicon.SetFillColorFunction(func(hashBytes []byte) color.Color {
 			// 自定义颜色
-			if len(req.FillColor) != 0 {
-				fillColor, err := hexToRGBA(req.FillColor)
+			if len(req.GetFillColor()) != 0 {
+				fillColor, err := hexToRGBA(req.GetFillColor())
 				if err != nil {
 					return defaultFillColor(hashBytes)
 				}
