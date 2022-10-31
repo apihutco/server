@@ -3,6 +3,7 @@ package routers
 import (
 	"apihut-server/config"
 	. "apihut-server/controller"
+	"apihut-server/routers/middleware"
 	"apihut-server/utils/ws"
 
 	"github.com/gin-gonic/gin"
@@ -13,6 +14,7 @@ func SetupRouter() *gin.Engine {
 
 	r := gin.New()
 	r.StaticFile("favicon.ico", "./assets/favicon.ico")
+	r.Use(middleware.Logger())
 
 	// 首页
 	r.GET("/", HomeHandler)
