@@ -40,14 +40,14 @@ func AvatarHandler(c *gin.Context) {
 	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		logger.L().Debug("参数绑定失败", zap.Error(err), zap.Any("query", c.Request.URL.RawQuery))
-		response.ErrorWithMsg(c, err.Error())
+		response.ErrorWithCode(c, response.ErrorBind)
 		return
 	}
 
 	filePath, err := avatar.NewAvatar(&req)
 	if err != nil {
 		logger.L().Error("生成头像失败", zap.Error(err))
-		response.ErrorWithMsg(c, err.Error())
+		response.ErrorWithCode(c, response.ErrorAvatarGenerate)
 		return
 	}
 

@@ -20,14 +20,14 @@ func IPJSONHandler(c *gin.Context) {
 
 	ip := net.ParseIP(strIP)
 	if ip == nil {
-		response.ErrorWithMsg(c, "IP格式错误")
+		response.ErrorWithCode(c, response.ErrorFormat)
 		return
 	}
 
 	info, err := ip_bank.GetIP(ip)
 	if err != nil {
 		logger.L().Error("无法定位", zap.Error(err), zap.String("IP", ip.String()))
-		response.ErrorWithMsgAndData(c, "无法定位", gin.H{"ip": ip.String()})
+		response.ErrorWithMsgAndData(c, response.ErrorIPUnableToLocate.Msg(), gin.H{"ip": ip.String()})
 		return
 	}
 

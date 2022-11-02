@@ -38,7 +38,7 @@ func PostHandler(c *gin.Context) {
 
 	if err != nil {
 		logger.L().Error("读取Body失败", zap.Error(err))
-		response.Error(c)
+		response.ErrorWithCode(c, response.ErrorProtocolReadBody)
 		return
 	}
 
@@ -46,7 +46,7 @@ func PostHandler(c *gin.Context) {
 	err = json.Unmarshal(body, &h)
 	if err != nil {
 		logger.L().Error("序列化失败", zap.Error(err))
-		response.ErrorWithMsg(c, "序列化失败")
+		response.ErrorWithCode(c, response.ErrorProtocolUnmarshal)
 		return
 	}
 
@@ -64,7 +64,7 @@ func WebSocketHandler(c *gin.Context) {
 	err := ws.Handler(hub, c)
 	if err != nil {
 		logger.L().Error("协议升级失败", zap.Error(err))
-		response.ErrorWithMsg(c, "协议升级失败")
+		response.ErrorWithCode(c, response.ErrorProtocolWsUpgrade)
 		return
 	}
 }
