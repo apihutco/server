@@ -111,11 +111,10 @@ func (c *Client) Write() {
 	}
 }
 
-func Handler(hub *Hub, c *gin.Context) {
+func Handler(hub *Hub, c *gin.Context) error {
 	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
-		logger.L().Error("upgrade err", zap.Error(err))
-		return
+		return err
 	}
 
 	channel := c.Param("channel")
@@ -125,4 +124,6 @@ func Handler(hub *Hub, c *gin.Context) {
 
 	go client.Write()
 	go client.Read()
+
+	return nil
 }
