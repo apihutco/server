@@ -6,6 +6,7 @@ import (
 	"image/color"
 	"os"
 	"path"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -60,6 +61,7 @@ func NewAvatar(req *models.AvatarReq) (string, error) {
 	}
 
 	filePath := getFilePath(req)
+	_ = os.MkdirAll(filepath.Dir(filePath), os.ModePerm)
 	f, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
 	defer func(f *os.File) {
 		_ = f.Close()
