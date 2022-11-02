@@ -1,16 +1,11 @@
 package response
 
-import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
-)
-
 type Code uint64
 
 const (
-	CodeSuccess Code = 2000
-	CodeError   Code = 5000 + iota
+	CodeSuccess    Code = 2000
+	CodeBaeRequest Code = 4000
+	CodeError      Code = 5000 + iota
 
 	ErrorFormat
 	ErrorBind
@@ -45,44 +40,4 @@ func (c Code) Msg() string {
 		return msg
 	}
 	return ""
-}
-
-func Success(c *gin.Context) {
-	SuccessWithData(c, nil)
-}
-
-func SuccessWithData(c *gin.Context, data interface{}) {
-	code := CodeSuccess
-	JSON(c, code, code.Msg(), data)
-}
-
-func Error(c *gin.Context) {
-	ErrorWithMsg(c, CodeError.Msg())
-}
-
-func ErrorWithCode(c *gin.Context, code Code) {
-	JSON(c, code, code.Msg(), nil)
-}
-
-func ErrorWithMsg(c *gin.Context, msg string) {
-	code := CodeError
-	JSON(c, code, msg, nil)
-}
-
-func ErrorWithData(c *gin.Context, data interface{}) {
-	code := CodeError
-	JSON(c, code, code.Msg(), data)
-}
-
-func ErrorWithMsgAndData(c *gin.Context, msg string, data interface{}) {
-	code := CodeError
-	JSON(c, code, msg, data)
-}
-
-func JSON(c *gin.Context, code Code, msg string, data interface{}) {
-	c.JSON(http.StatusOK, &Body{
-		Code: code,
-		Msg:  msg,
-		Data: data,
-	})
 }

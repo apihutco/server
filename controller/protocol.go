@@ -2,16 +2,14 @@ package controller
 
 import (
 	"apihut-server/logger"
+	"apihut-server/logic/consts"
+	"apihut-server/logic/protocol"
+	"apihut-server/response"
 	"apihut-server/utils/ws"
 	"encoding/json"
 	"go.uber.org/zap"
 	"io"
 	"io/ioutil"
-	"net/http"
-
-	"apihut-server/logic/consts"
-	"apihut-server/logic/protocol"
-	"apihut-server/response"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,10 +21,10 @@ func GetHandler(c *gin.Context) {
 	switch output {
 	case consts.CaseOutputType(output, consts.Text):
 		str := protocol.ParamsToString(c.Request)
-		c.String(http.StatusOK, str)
+		response.Success(c).Data(str).String()
 	default:
 		res := protocol.ParamsToJSON(c.Request)
-		response.SuccessWithData(c, res)
+		response.Success(c).Data(res).Pure()
 	}
 }
 
@@ -38,7 +36,7 @@ func PostHandler(c *gin.Context) {
 
 	if err != nil {
 		logger.L().Error("读取Body失败", zap.Error(err))
-		response.ErrorWithCode(c, response.ErrorProtocolReadBody)
+		response.BadRequest(c).Code(response.ErrorProtocolReadBody).JSON()
 		return
 	}
 
@@ -46,11 +44,11 @@ func PostHandler(c *gin.Context) {
 	err = json.Unmarshal(body, &h)
 	if err != nil {
 		logger.L().Error("序列化失败", zap.Error(err))
-		response.ErrorWithCode(c, response.ErrorProtocolUnmarshal)
+		response.Error(c).Code(response.ErrorProtocolUnmarshal).JSON()
 		return
 	}
 
-	response.SuccessWithData(c, h)
+	response.Success(c).Data(h).Pure()
 }
 
 var hub *ws.Hub
@@ -64,7 +62,7 @@ func WebSocketHandler(c *gin.Context) {
 	err := ws.Handler(hub, c)
 	if err != nil {
 		logger.L().Error("协议升级失败", zap.Error(err))
-		response.ErrorWithCode(c, response.ErrorProtocolWsUpgrade)
+		response.Error(c).Code(response.ErrorProtocolWsUpgrade).JSON()
 		return
 	}
 }

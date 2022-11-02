@@ -40,14 +40,14 @@ func AvatarHandler(c *gin.Context) {
 	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		logger.L().Debug("参数绑定失败", zap.Error(err), zap.Any("query", c.Request.URL.RawQuery))
-		response.ErrorWithCode(c, response.ErrorBind)
+		response.BadRequest(c).Code(response.ErrorBind).JSON()
 		return
 	}
 
 	filePath, err := avatar.NewAvatar(&req)
 	if err != nil {
 		logger.L().Error("生成头像失败", zap.Error(err))
-		response.ErrorWithCode(c, response.ErrorAvatarGenerate)
+		response.Error(c).Code(response.ErrorAvatarGenerate).JSON()
 		return
 	}
 
@@ -55,7 +55,7 @@ func AvatarHandler(c *gin.Context) {
 	switch req.GetOutput() {
 	case consts.JSON:
 		b := FileToBase64(filePath)
-		response.SuccessWithData(c, gin.H{"avatar": b})
+		response.Success(c).Data(gin.H{"avatar": b}).JSON()
 		return
 	case consts.Base64:
 		b := FileToBase64(filePath)

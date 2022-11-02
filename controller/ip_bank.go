@@ -1,12 +1,10 @@
 package controller
 
 import (
-	"net"
-	"net/http"
-
 	"apihut-server/logger"
 	"apihut-server/logic/ip_bank"
 	"apihut-server/response"
+	"net"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -20,20 +18,20 @@ func IPJSONHandler(c *gin.Context) {
 
 	ip := net.ParseIP(strIP)
 	if ip == nil {
-		response.ErrorWithCode(c, response.ErrorFormat)
+		response.BadRequest(c).Code(response.ErrorFormat).JSON()
 		return
 	}
 
 	info, err := ip_bank.GetIP(ip)
 	if err != nil {
 		logger.L().Error("无法定位", zap.Error(err), zap.String("IP", ip.String()))
-		response.ErrorWithMsgAndData(c, response.ErrorIPUnableToLocate.Msg(), gin.H{"ip": ip.String()})
+		response.Error(c).Code(response.ErrorIPUnableToLocate).Data(gin.H{"ip": ip.String()}).JSON()
 		return
 	}
 
-	response.SuccessWithData(c, info)
+	response.Success(c).Data(info).JSON()
 }
 
 func IPTextHandler(c *gin.Context) {
-	c.String(http.StatusOK, c.ClientIP())
+	response.Success(c).Data(c.ClientIP()).String()
 }
