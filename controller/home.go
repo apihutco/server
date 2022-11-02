@@ -7,9 +7,13 @@ import (
 )
 
 func HomeHandler(c *gin.Context) {
-	c.String(http.StatusOK, "Home")
+	c.String(http.StatusOK, "APIHut")
 }
 
 func NotFound(c *gin.Context) {
 	c.String(http.StatusOK, "Not found")
+}
+
+func HealthHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"ok": "true"})
 }

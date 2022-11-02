@@ -4,8 +4,6 @@ import (
 	"apihut-server/config"
 	. "apihut-server/controller"
 	"apihut-server/routers/middleware"
-	"apihut-server/utils/ws"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +13,6 @@ func SetupRouter() *gin.Engine {
 	r := gin.New()
 	r.StaticFile("favicon.ico", "./static/favicon.ico")
 	r.Use(middleware.Logger())
-
 	// 首页
 	r.GET("/", HomeHandler)
 
@@ -31,17 +28,11 @@ func SetupRouter() *gin.Engine {
 
 	// 协议测试（get，post，ws）
 	{
-		r.GET("/get", GetHandler)         // JSON形式返回Query参数
-		r.GET("/get/:output", GetHandler) // 按格式返回Query参数
-		r.POST("/post", PostHandler)
-		hub := ws.NewHub()
-		go hub.Run()
-		r.GET("/ws", func(c *gin.Context) {
-			ws.Handler(hub, c)
-		})
-		r.GET("/ws/:channel", func(c *gin.Context) {
-			ws.Handler(hub, c)
-		})
+		r.GET("/get", GetHandler)               // JSON形式返回Query参数
+		r.GET("/get/:output", GetHandler)       // 按格式返回Query参数
+		r.POST("/post", PostHandler)            // 原样返回请求的Body
+		r.GET("/ws", WebSocketHandler)          // 单机ws收发
+		r.GET("/ws/:channel", WebSocketHandler) // 频道ws收发
 	}
 
 	// 哈希头像生成

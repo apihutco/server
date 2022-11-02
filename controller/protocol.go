@@ -1,7 +1,10 @@
 package controller
 
 import (
+	"apihut-server/logger"
+	"apihut-server/utils/ws"
 	"encoding/json"
+	"go.uber.org/zap"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -34,20 +37,34 @@ func PostHandler(c *gin.Context) {
 	}(c.Request.Body)
 
 	if err != nil {
+		logger.L().Error("读取Body失败", zap.Error(err))
 		response.Error(c)
 		return
 	}
 
 	var h gin.H
-	_ = json.Unmarshal(body, &h)
+	err = json.Unmarshal(body, &h)
+	if err != nil {
+		logger.L().Error("序列化失败", zap.Error(err))
+		response.ErrorWithMsg(c, "序列化失败")
+		return
+	}
 
 	response.SuccessWithData(c, h)
 }
 
-func WebSocketHandler(c *gin.Context) {
+var hub *ws.Hub
 
+func init() {
+	hub = ws.NewHub()
+	go hub.Run()
 }
 
-func WebSocketWithChannel(c *gin.Context) {
-
+func WebSocketHandler(c *gin.Context) {
+	err := ws.Handler(hub, c)
+	if err != nil {
+		logger.L().Error("协议升级失败", zap.Error(err))
+		response.ErrorWithMsg(c, "协议升级失败")
+		return
+	}
 }

@@ -14,7 +14,7 @@ func GreetHandler(c *gin.Context) {
 
 	re, err := greet.GetGreet(str)
 	if err != nil {
-		logger.L().Error("获取一句招呼失败", zap.Error(err))
+		logger.L().Error("获取一句招呼失败", zap.Error(err), zap.String("query", str))
 		response.Error(c)
 		return
 	}

@@ -26,8 +26,8 @@ func IPJSONHandler(c *gin.Context) {
 
 	info, err := ip_bank.GetIP(ip)
 	if err != nil {
-		logger.L().Error("IP not found", zap.Error(err))
-		response.ErrorWithMsgAndData(c, "无法定位", gin.H{"ip": strIP})
+		logger.L().Error("无法定位", zap.Error(err), zap.String("IP", ip.String()))
+		response.ErrorWithMsgAndData(c, "无法定位", gin.H{"ip": ip.String()})
 		return
 	}
 
