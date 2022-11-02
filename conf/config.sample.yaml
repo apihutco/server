@@ -11,7 +11,7 @@ db:
     port: 3306
     db_name: apihut
   sqlite:
-    name: test.db
+    name: "./data/test.db"
 
 redis:
   enable: false
@@ -22,13 +22,13 @@ redis:
 
 logger:
   level: debug
-  file_name: apihut.log
+  file_name: "./logs/apihut.log"
   max_size: 12
   max_age: 12
   max_backups: 12
 
 file:
-  avatar: "./assets/avatar"
+  avatar: "./data/assets/avatar"
 
 open:
   tencent:
