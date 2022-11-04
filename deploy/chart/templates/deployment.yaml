@@ -38,10 +38,10 @@ spec:
               containerPort: {{ .Values.image.port }}
               protocol: TCP
           volumeMounts:
-            - mountPath: assets
+            - mountPath: /app/assets
               name: data
               subPath: assets
-            - mountPath: logs
+            - mountPath: /app/logs
               name: data
               subPath: logs
             - mountPath: /app/conf/config.yaml
