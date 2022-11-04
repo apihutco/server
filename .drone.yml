@@ -17,7 +17,7 @@ steps:
       branch:
         - main
 
-  - name: "[dev] docker build & push"
+  - name: docker build hash & push
     image: plugins/docker
     settings:
       username:
@@ -25,13 +25,42 @@ steps:
       password:
         from_secret: docker_password
       repo: harbor.northes.co/apihut/server
-      tags: dev
+      tags: ${DRONE_COMMIT_SHA:0:8}
       registry: harbor.northes.co
-    when:
-      branch:
-        - dev
 
 trigger:
   branch:
-    - main
     - dev
+
+---
+kind: pipeline
+type: kubernetes
+name: build && deploy
+
+steps:
+  - name: docker build tag & push
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: harbor.northes.co/apihut/server
+      tags: ${DRONE_TAG##v}
+      registry: harbor.northes.co
+
+  - name: "chart package"
+    image: alpine/helm:3.10.1
+    environment:
+      username:
+        from_secret: helm_username
+      password:
+        from_secret: helm_password
+    commands:
+      - helm repo add chartmuseum https://charts.northes.co --username=$username --password=$password
+      - helm plugin install https://github.com/chartmuseum/helm-push
+      - helm cm-push ./deploy/chart chartmuseum --version=${DRONE_TAG##v} --app-version=${DRONE_TAG##v}
+
+trigger:
+  event:
+    - tag
