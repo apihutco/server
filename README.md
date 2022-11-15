@@ -2,6 +2,10 @@
 
 [![Build Status](https://drone.northes.co/api/badges/apihut/server-2.0/status.svg?ref=refs/heads/main)](https://drone.northes.co/apihut/server-2.0)
 
+version: 2.0
+
+Start reconstruct: 2022.09.26
+
 ### 部署流程
 1. 创建基础镜像 `deploy/images`
 2. 设置 pvc，同步到 `.drone.yml` 的 `volumes` 项中
