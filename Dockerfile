@@ -1,4 +1,4 @@
-FROM harbor.northes.co/northes/golang:1.18-alpine-gcc AS builder
+FROM northes/golang:1.18-alpine-gcc AS builder
 
 ENV GO111MODULE=on \
     CGO_ENABLED=1 \
@@ -11,7 +11,7 @@ COPY . .
 
 RUN export GOPROXY=https://proxy.golang.com.cn,direct && go build -o ./bin/apihut .
 
-FROM harbor.northes.co/northes/alpine:gcc
+FROM northes/alpine:gcc
 
 WORKDIR /app
 

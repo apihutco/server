@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: harbor.northes.co/apihut/server
+  repository: northes/apihut-server
   pullPolicy: Always
   tag: "latest"
   port: 8080
