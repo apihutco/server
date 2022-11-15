@@ -3,11 +3,11 @@ replicaCount: 1
 image:
   repository: northes/apihut-server
   pullPolicy: Always
-  tag: "latest"
+  tag: ""
   port: 8080
 
 imagePullSecrets:
-  - name: "harbor-pull-secret"
+  - name: "hub-pull-secret"
 nameOverride: ""
 fullnameOverride: ""
 
