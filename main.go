@@ -1,14 +1,17 @@
 package main
 
 import (
-	"apihut-server/dao/bleve"
 	"flag"
+
+	"apihut-server/dao/bleve"
 
 	"apihut-server/config"
 	"apihut-server/dao/mysql"
 	"apihut-server/dao/redis"
 	"apihut-server/logger"
 	"apihut-server/routers"
+
+	"go.uber.org/zap"
 )
 
 var configFile string
@@ -37,17 +40,20 @@ func main() {
 	// 初始化数据库
 	err = mysql.Init()
 	if err != nil {
-		panic(err)
+		logger.L().DPanic("database panic", zap.Error(err))
+		return
 	}
 	// 初始化Redis
 	err = redis.Init()
 	if err != nil {
-		panic(err)
+		logger.L().DPanic("redis panic", zap.Error(err))
+		return
 	}
 	// 初始化全文索引
 	err = bleve.Init(config.Share.Bleve.Index)
 	if err != nil {
-		panic(err)
+		logger.L().DPanic("bleve panic", zap.Error(err))
+		return
 	}
 
 	_ = r.Run(config.GetSitePort())
