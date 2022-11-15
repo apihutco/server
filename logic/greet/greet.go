@@ -1,14 +1,16 @@
 package greet
 
 import (
+	"strings"
+
 	"apihut-server/dao/bleve"
 	"apihut-server/logger"
 	"apihut-server/logic/consts"
 	"apihut-server/models"
 	"apihut-server/utils"
+
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
-	"strings"
 )
 
 func GetGreet(s string) (*models.Greet, error) {
@@ -32,6 +34,10 @@ func GetGreet(s string) (*models.Greet, error) {
 	}
 
 	logger.L().Debug("一句招呼查询", zap.Any("结果", ls))
+
+	if err != nil {
+		return nil, err
+	}
 
 	return ls[utils.GetRange(len(ls))], nil
 }
