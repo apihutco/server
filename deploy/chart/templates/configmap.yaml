@@ -9,6 +9,7 @@ data:
     site:
       mode: debug # debug,release
       port: 8080
+      docs_url: "https://docs.apihut.co"
 
     db:
       driver: sqlite # sqlite,mysql

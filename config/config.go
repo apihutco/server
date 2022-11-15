@@ -21,8 +21,9 @@ type AppConf struct {
 }
 
 type Site struct {
-	Mode string `mapstructure:"mode"`
-	Port int    `mapstructure:"port"`
+	Mode    string `mapstructure:"mode"`
+	Port    int    `mapstructure:"port"`
+	DocsUrl string `mapstructure:"docs_url"`
 }
 
 type DB struct {
