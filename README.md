@@ -1,6 +1,6 @@
 ## APIHut
 
-[![Build Status](https://drone.northes.co/api/badges/apihut/server-2.0/status.svg?ref=refs/heads/main)](https://drone.northes.co/apihut/server-2.0)
+[![Build Status](https://drone.northes.co/api/badges/apihut/server/status.svg?ref=refs/heads/main)](https://drone.northes.co/apihut/server)
 
 version: 2.0
 
