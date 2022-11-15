@@ -1,11 +1,13 @@
 package bleve
 
 import (
+	"strconv"
+
 	"apihut-server/dao/mysql"
+
 	"github.com/blevesearch/bleve/v2"
 	"github.com/pkg/errors"
 	gse "github.com/vcaesar/gse-bleve"
-	"strconv"
 )
 
 var i *index
@@ -17,6 +19,10 @@ type index struct {
 func Init(indexPath string) error {
 	var greetIndex bleve.Index
 	var err error
+
+	if len(indexPath) == 0 {
+		return ErrorIndexEmpty
+	}
 
 	opt := gse.Option{
 		Index: indexPath,
