@@ -1,13 +1,21 @@
 package bleve
 
 import (
+	"io/ioutil"
+	"os"
+	"path"
 	"strconv"
+	"sync"
 
+	"apihut-server/config"
 	"apihut-server/dao/mysql"
+	"apihut-server/logger"
 
 	"github.com/blevesearch/bleve/v2"
 	"github.com/pkg/errors"
 	gse "github.com/vcaesar/gse-bleve"
+	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 var i *index
@@ -53,7 +61,12 @@ func Init(indexPath string) error {
 
 func migrate() error {
 	greetList, err := mysql.GetGreetList()
-	if err != nil {
+	if errors.Is(gorm.ErrRecordNotFound, err) || len(greetList) == 0 {
+		if err = loadSQLFile(); err != nil {
+			return err
+		}
+		greetList, err = mysql.GetGreetList()
+	} else if err != nil {
 		return err
 	}
 
@@ -68,6 +81,46 @@ func migrate() error {
 	if err = i.greet.Batch(batch); err != nil {
 		return err
 	}
+
+	return nil
+}
+
+func loadSQLFile() error {
+	fileList, err := os.ReadDir(config.Share.Bleve.SetupPath)
+	if err != nil {
+		return err
+	}
+
+	wg := sync.WaitGroup{}
+	for _, entry := range fileList {
+		wg.Add(1)
+		go func(entry os.DirEntry) {
+			file, err := os.Open(path.Join(config.Share.Bleve.SetupPath, entry.Name()))
+			defer func() {
+				_ = file.Close()
+				wg.Done()
+			}()
+			if err != nil {
+				logger.L().Error("Setup open file", zap.Error(err))
+				return
+			}
+			bytes, err := ioutil.ReadAll(file)
+			if err != nil {
+				logger.L().Error("Setup read all", zap.Error(err))
+				return
+			}
+
+			logger.L().Debug("Setup SQL", zap.ByteString("content", bytes))
+
+			err = mysql.Exec(string(bytes))
+			if err != nil {
+				logger.L().Error("Setup sql exec", zap.Error(err))
+				return
+			}
+		}(entry)
+	}
+
+	wg.Wait()
 
 	return nil
 }
