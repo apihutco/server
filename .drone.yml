@@ -10,9 +10,8 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
-      repo: harbor.northes.co/apihut/server
+      repo: northes/apihut-server
       tags: latest
-      registry: harbor.northes.co
     when:
       branch:
         - main
@@ -24,9 +23,8 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
-      repo: harbor.northes.co/apihut/server
-      tags: ${DRONE_COMMIT_SHA:0:8}
-      registry: harbor.northes.co
+      repo: northes/apihut-server
+      tags: dev-${DRONE_COMMIT_SHA:0:8}
 
 trigger:
   branch:
@@ -45,9 +43,8 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
-      repo: harbor.northes.co/apihut/server
+      repo: northes/apihut-server
       tags: ${DRONE_TAG##v}
-      registry: harbor.northes.co
 
   - name: "chart package"
     image: alpine/helm:3.10.1
