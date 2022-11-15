@@ -38,4 +38,5 @@ open:
     key: ""
 
 bleve:
-  index: "greet.blv"
+  index: "./data/greet.blv"
+  setup_path: "./deploy/setup"

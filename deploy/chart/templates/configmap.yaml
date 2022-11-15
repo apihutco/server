@@ -47,3 +47,4 @@ data:
 
     bleve:
       index: "./data/greet.blv"
+      setup_path: "./deploy/setup"
