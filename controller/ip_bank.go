@@ -29,6 +29,8 @@ func IPJSONHandler(c *gin.Context) {
 		return
 	}
 
+	info.CacheTime = info.UpdatedAt
+
 	response.Success(c).Data(info).JSON()
 }
 

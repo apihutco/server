@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type IPBank struct {
 	Model
 	// IP
@@ -18,4 +20,6 @@ type IPBank struct {
 	Location string `gorm:"comment:地理位置" json:"location"`
 	// 数据源
 	Source string `gorm:"comment:数据源" json:"source"`
+	// 缓存更新时间
+	CacheTime time.Time `gorm:"-" json:"cache_time"`
 }
