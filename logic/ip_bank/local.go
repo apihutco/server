@@ -1,10 +1,11 @@
 package ip_bank
 
 import (
-	"apihut-server/dao/mysql"
-	"apihut-server/logic/consts"
-	"apihut-server/models"
 	"net"
+
+	"apihut-server/dao/mysql"
+	"apihut-server/models"
+	"apihut-server/utils/consts"
 )
 
 type local struct {

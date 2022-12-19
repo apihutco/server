@@ -10,8 +10,8 @@ import (
 	"strconv"
 
 	"apihut-server/config"
-	"apihut-server/logic/consts"
 	"apihut-server/models"
+	"apihut-server/utils/consts"
 
 	"github.com/pkg/errors"
 )
@@ -81,7 +81,7 @@ func (g *gaode) GetIP(ip net.IP) (*models.IPBank, error) {
 		District: lbs.District,
 		ISP:      lbs.ISP,
 		Location: lbs.Location,
-		Source:   g.Platform().Name(),
+		Source:   g.Platform().String(),
 	}, nil
 }
 

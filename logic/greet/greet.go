@@ -5,9 +5,9 @@ import (
 
 	"apihut-server/dao/bleve"
 	"apihut-server/logger"
-	"apihut-server/logic/consts"
 	"apihut-server/models"
 	"apihut-server/utils"
+	"apihut-server/utils/consts"
 
 	"github.com/pkg/errors"
 	"go.uber.org/zap"

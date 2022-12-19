@@ -1,17 +1,19 @@
 package ip_bank
 
 import (
-	"apihut-server/config"
-	"apihut-server/logic/consts"
-	"apihut-server/models"
 	"encoding/json"
 	"errors"
-	"gorm.io/gorm"
 	"io"
 	"io/ioutil"
 	"net"
 	"net/http"
 	"net/url"
+
+	"apihut-server/config"
+	"apihut-server/models"
+	"apihut-server/utils/consts"
+
+	"gorm.io/gorm"
 )
 
 type tencent struct {
@@ -88,7 +90,7 @@ func (t *tencent) GetIP(ip net.IP) (*models.IPBank, error) {
 		District: lbs.Result.AdInfo.District,
 		ISP:      "",
 		Location: ToLocation(lbs.Result.Location.Lat, lbs.Result.Location.Lng),
-		Source:   t.Platform().Name(),
+		Source:   t.Platform().String(),
 	}, nil
 }
 

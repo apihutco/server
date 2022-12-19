@@ -1,14 +1,16 @@
 package ip_bank
 
 import (
+	"net"
+
 	"apihut-server/dao/mysql"
 	"apihut-server/logger"
-	"apihut-server/logic/consts"
 	"apihut-server/models"
+	"apihut-server/utils/consts"
+
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
-	"net"
 )
 
 type IIPCtrl interface {
@@ -33,7 +35,7 @@ func GetIP(ip net.IP) (*models.IPBank, error) {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
 				continue
 			}
-			logger.L().Error("Get IP", zap.Error(err), zap.String("platform", ctrl.Platform().Name()))
+			logger.L().Error("Get IP", zap.Error(err), zap.String("platform", ctrl.Platform().String()))
 			return nil, err
 		}
 
@@ -43,7 +45,7 @@ func GetIP(ip net.IP) (*models.IPBank, error) {
 			if i != 0 {
 				saveErr = mysql.CreateIPBank(ipInfo)
 				if saveErr != nil {
-					logger.L().Error("Save to db", zap.Error(saveErr), zap.String("from", ctrl.Platform().Name()), zap.Any("info", ipInfo))
+					logger.L().Error("Save to db", zap.Error(saveErr), zap.String("from", ctrl.Platform().String()), zap.Any("info", ipInfo))
 				}
 			}
 			// 持久化成功与否都返回

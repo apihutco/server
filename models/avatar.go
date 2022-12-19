@@ -1,7 +1,7 @@
 package models
 
 import (
-	"apihut-server/logic/consts"
+	"apihut-server/utils/consts"
 )
 
 // Gravatar: s,d,f,r

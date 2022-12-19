@@ -16,7 +16,7 @@ var PlatformName = map[PlatformCode]string{
 	Gaode:   "gaode",
 }
 
-func (p PlatformCode) Name() string {
+func (p PlatformCode) String() string {
 	if pl, ok := PlatformName[p]; ok {
 		return pl
 	}

@@ -1,17 +1,18 @@
 package controller
 
 import (
-	"apihut-server/logger"
-	"apihut-server/logic/consts"
-	"apihut-server/logic/protocol"
-	"apihut-server/response"
-	"apihut-server/utils/ws"
 	"encoding/json"
-	"go.uber.org/zap"
 	"io"
 	"io/ioutil"
 
+	"apihut-server/logger"
+	"apihut-server/logic/protocol"
+	"apihut-server/response"
+	"apihut-server/utils/consts"
+	"apihut-server/utils/ws"
+
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 func GetHandler(c *gin.Context) {

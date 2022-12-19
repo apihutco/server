@@ -1,20 +1,20 @@
 package controller
 
 import (
-	"apihut-server/logger"
 	"encoding/base64"
-	"go.uber.org/zap"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
 
+	"apihut-server/logger"
 	"apihut-server/logic/avatar"
-	"apihut-server/logic/consts"
 	"apihut-server/models"
 	"apihut-server/response"
+	"apihut-server/utils/consts"
 
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 /*

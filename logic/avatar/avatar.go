@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"apihut-server/config"
-	"apihut-server/logic/consts"
 	"apihut-server/models"
+	"apihut-server/utils/consts"
 
 	"github.com/nullrocks/identicon"
 )
