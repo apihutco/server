@@ -39,10 +39,10 @@ service:
 
 ingress:
   enabled: true
-  className: ""
+  className: "nginx"
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: default-redirectscheme@kubernetescrd # 强制 https 中间件
-    cert-manager.io/cluster-issuer: letsencrypt-prod # 测试环境
+#    traefik.ingress.kubernetes.io/router.middlewares: default-redirectscheme@kubernetescrd # 强制 https 中间件
+#    cert-manager.io/cluster-issuer: letsencrypt-prod # 测试环境
   hosts:
     - host: apihut.co
       paths:
