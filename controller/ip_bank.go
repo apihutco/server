@@ -33,5 +33,5 @@ func IPJSONHandler(c *gin.Context) {
 }
 
 func IPTextHandler(c *gin.Context) {
-	response.Success(c).Data(c.ClientIP()).String()
+	response.Success(c).Data(c.ClientIP() + "\n").String()
 }
