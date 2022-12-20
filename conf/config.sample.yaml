@@ -40,3 +40,4 @@ open:
 bleve:
   index: "./data/greet.blv"
   setup_path: "./deploy/setup"
+  sync_cron: "@every 10m" # 每十分钟进行一次单向数据同步

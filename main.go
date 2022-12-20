@@ -4,6 +4,7 @@ import (
 	"flag"
 
 	"apihut-server/dao/bleve"
+	"apihut-server/utils/cron"
 
 	"apihut-server/config"
 	"apihut-server/dao/mysql"
@@ -55,6 +56,8 @@ func main() {
 		logger.L().DPanic("bleve panic", zap.Error(err))
 		return
 	}
+	// 开启定时任务
+	cron.Init()
 
 	_ = r.Run(config.Conf.GetSitePort())
 }

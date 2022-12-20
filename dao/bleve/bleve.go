@@ -7,15 +7,14 @@ import (
 	"strconv"
 	"sync"
 
-	"apihut-server/config"
 	"apihut-server/dao/mysql"
 	"apihut-server/logger"
+	"apihut-server/utils/gen"
 
 	"github.com/blevesearch/bleve/v2"
 	"github.com/pkg/errors"
 	gse "github.com/vcaesar/gse-bleve"
 	"go.uber.org/zap"
-	"gorm.io/gorm"
 )
 
 var i *index
@@ -51,15 +50,17 @@ func Init(indexPath string) error {
 	i = new(index)
 	i.greet = greetIndex
 
-	// 同步索引
-	if err = migrate(); err != nil {
+	// 同步索引，只增改不删除
+	if err = SyncFromDB(); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func migrate() error {
+var lastSyncMD5 string
+
+func SyncFromDB() error {
 	greetList, err := mysql.GetGreetList()
 	if errors.Is(gorm.ErrRecordNotFound, err) || len(greetList) == 0 {
 		if err = loadSQLFile(); err != nil {
@@ -68,6 +69,17 @@ func migrate() error {
 		greetList, err = mysql.GetGreetList()
 	} else if err != nil {
 		return err
+	}
+
+	// 缓存上次变动的md5，避免频繁更新
+	m, _ := json.Marshal(greetList)
+	newMD5 := gen.MD5(m)
+	if lastSyncMD5 == newMD5 {
+		logger.L().Debug("md5相同，数据无变动", zap.String("md5", newMD5))
+		return nil
+	} else {
+		logger.L().Debug("md5变动，数据更新", zap.String("old.md5", lastSyncMD5), zap.String("new.md5", newMD5))
+		lastSyncMD5 = newMD5
 	}
 
 	batch := i.greet.NewBatch()
