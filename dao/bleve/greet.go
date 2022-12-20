@@ -2,14 +2,10 @@ package bleve
 
 import (
 	"apihut-server/models"
-	"errors"
+
 	"github.com/blevesearch/bleve/v2"
 	uquery "github.com/blevesearch/bleve/v2/search/query"
 	"github.com/mitchellh/mapstructure"
-)
-
-var (
-	ErrorNotFound = errors.New("无法找到结果")
 )
 
 func SearchGreet(str string) ([]*models.Greet, error) {

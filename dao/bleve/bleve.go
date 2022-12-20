@@ -70,6 +70,9 @@ func SyncFromDB() error {
 	} else if err != nil {
 		return err
 	}
+	if len(greetList) == 0 {
+		return ErrorNotFound
+	}
 
 	// 缓存上次变动的md5，避免频繁更新
 	m, _ := json.Marshal(greetList)

@@ -5,5 +5,6 @@ import (
 )
 
 var (
-	ErrorIndexEmpty = errors.New("index is empty")
+	ErrorIndexEmpty = errors.New("索引为空")
+	ErrorNotFound   = errors.New("无匹配数据")
 )
