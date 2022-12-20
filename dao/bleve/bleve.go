@@ -1,11 +1,8 @@
 package bleve
 
 import (
-	"io/ioutil"
-	"os"
-	"path"
+	"encoding/json"
 	"strconv"
-	"sync"
 
 	"apihut-server/dao/mysql"
 	"apihut-server/logger"
@@ -62,12 +59,7 @@ var lastSyncMD5 string
 
 func SyncFromDB() error {
 	greetList, err := mysql.GetGreetList()
-	if errors.Is(gorm.ErrRecordNotFound, err) || len(greetList) == 0 {
-		if err = loadSQLFile(); err != nil {
-			return err
-		}
-		greetList, err = mysql.GetGreetList()
-	} else if err != nil {
+	if err != nil {
 		return err
 	}
 	if len(greetList) == 0 {
@@ -96,46 +88,6 @@ func SyncFromDB() error {
 	if err = i.greet.Batch(batch); err != nil {
 		return err
 	}
-
-	return nil
-}
-
-func loadSQLFile() error {
-	fileList, err := os.ReadDir(config.Share.Bleve.SetupPath)
-	if err != nil {
-		return err
-	}
-
-	wg := sync.WaitGroup{}
-	for _, entry := range fileList {
-		wg.Add(1)
-		go func(entry os.DirEntry) {
-			file, err := os.Open(path.Join(config.Share.Bleve.SetupPath, entry.Name()))
-			defer func() {
-				_ = file.Close()
-				wg.Done()
-			}()
-			if err != nil {
-				logger.L().Error("Setup open file", zap.Error(err))
-				return
-			}
-			bytes, err := ioutil.ReadAll(file)
-			if err != nil {
-				logger.L().Error("Setup read all", zap.Error(err))
-				return
-			}
-
-			logger.L().Debug("Setup SQL", zap.ByteString("content", bytes))
-
-			err = mysql.Exec(string(bytes))
-			if err != nil {
-				logger.L().Error("Setup sql exec", zap.Error(err))
-				return
-			}
-		}(entry)
-	}
-
-	wg.Wait()
 
 	return nil
 }
