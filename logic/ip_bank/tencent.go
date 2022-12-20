@@ -95,5 +95,5 @@ func (t *tencent) GetIP(ip net.IP) (*models.IPBank, error) {
 }
 
 func (t *tencent) Platform() consts.PlatformCode {
-	return consts.Tencent
+	return consts.RepoPlatform.Tencent
 }

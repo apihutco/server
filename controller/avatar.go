@@ -53,11 +53,11 @@ func AvatarHandler(c *gin.Context) {
 
 	// 按格式返回
 	switch req.GetOutput() {
-	case consts.JSON:
+	case consts.RepoOutput.JSON:
 		b := FileToBase64(filePath)
 		response.Success(c).Data(gin.H{"avatar": b}).JSON()
 		return
-	case consts.Base64:
+	case consts.RepoOutput.Base64:
 		b := FileToBase64(filePath)
 		c.String(http.StatusOK, b)
 		return

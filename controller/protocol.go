@@ -19,8 +19,8 @@ func GetHandler(c *gin.Context) {
 
 	output := c.Param("output")
 
-	switch output {
-	case consts.CaseOutputType(output, consts.Text):
+	switch true {
+	case consts.RepoOutput.Is(output, consts.RepoOutput.Text):
 		str := protocol.ParamsToString(c.Request)
 		response.Success(c).Data(str).String()
 	default:

@@ -18,7 +18,7 @@ func GetGreet(s string) (*models.Greet, error) {
 	query = s
 	if len(query) == 0 {
 		q := strings.Builder{}
-		q.WriteString(consts.GetTimeCode().String())
+		q.WriteString(consts.RepoTime.Now().String())
 		query = q.String()
 	}
 

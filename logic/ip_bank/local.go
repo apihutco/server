@@ -20,5 +20,5 @@ func (l *local) GetIP(ip net.IP) (*models.IPBank, error) {
 }
 
 func (l *local) Platform() consts.PlatformCode {
-	return consts.Local
+	return consts.RepoPlatform.Local
 }

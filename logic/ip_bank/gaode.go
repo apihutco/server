@@ -86,5 +86,5 @@ func (g *gaode) GetIP(ip net.IP) (*models.IPBank, error) {
 }
 
 func (g *gaode) Platform() consts.PlatformCode {
-	return consts.Gaode
+	return consts.RepoPlatform.Gaode
 }

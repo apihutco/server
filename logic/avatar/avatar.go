@@ -26,7 +26,7 @@ func NewAvatar(req *models.AvatarReq) (string, error) {
 		identicon.SetBackgroundColorFunction(func(cb []byte, fc color.Color) color.Color {
 			if len(req.GetBackgroundColor()) != 0 {
 				// 透明
-				if req.GetBackgroundColor() == consts.ColorTransparent.String() {
+				if consts.RepoColor.Is(req.GetBackgroundColor(), consts.RepoColor.Transparent) {
 					return color.Transparent
 				}
 				// 自定义背景颜色
@@ -71,9 +71,9 @@ func NewAvatar(req *models.AvatarReq) (string, error) {
 	}
 
 	switch req.GetOutput() {
-	case consts.JPG, consts.JPEG:
+	case consts.RepoOutput.JPG, consts.RepoOutput.JPEG:
 		err = ident.Jpeg(req.GetSize(), req.GetQuality(), f)
-	case consts.SVG:
+	case consts.RepoOutput.SVG:
 		err = ident.Svg(req.GetSize(), f)
 	default:
 		err = ident.Png(req.GetSize(), f)
@@ -88,12 +88,12 @@ func NewAvatar(req *models.AvatarReq) (string, error) {
 func getFilePath(req *models.AvatarReq) string {
 	ext := req.GetOutput().String()
 	switch req.GetOutput() {
-	case consts.JPG, consts.JPEG:
-		ext = consts.JPEG.String()
-	case consts.SVG:
-		ext = consts.SVG.String()
+	case consts.RepoOutput.JPG, consts.RepoOutput.JPEG:
+		ext = consts.RepoOutput.JPEG.String()
+	case consts.RepoOutput.SVG:
+		ext = consts.RepoOutput.SVG.String()
 	default:
-		ext = consts.PNG.String()
+		ext = consts.RepoOutput.PNG.String()
 	}
 
 	return path.Join(config.Share.File.Avatar, fmt.Sprintf(

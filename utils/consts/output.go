@@ -6,51 +6,68 @@ import (
 
 type OutputType string
 
-// OutputType:
+var RepoOutput *output
+
+type output struct {
+	Default OutputType
+	JSON    OutputType
+	PNG     OutputType
+	JPG     OutputType
+	JPEG    OutputType
+	SVG     OutputType
+	Base64  OutputType
+	Text    OutputType
+}
 
 var (
-	Default            = OutputType(DefaultCode.EN())
-	JSON    OutputType = "json"
-	PNG     OutputType = "png"
-	JPG     OutputType = "jpg"
-	JPEG    OutputType = "jpeg"
-	SVG     OutputType = "svg"
-	Base64  OutputType = "base64"
-	Text    OutputType = "text"
+	outputDefault OutputType = OutputType(DefaultCode.EN())
+	outputJSON    OutputType = "json"
+	outputPNG     OutputType = "png"
+	outputJPG     OutputType = "jpg"
+	outputJPEG    OutputType = "jpeg"
+	outputSVG     OutputType = "svg"
+	outputBase64  OutputType = "base64"
+	outputText    OutputType = "text"
 )
+
+func init() {
+	RepoOutput = &output{
+		Default: outputDefault,
+		JSON:    outputJSON,
+		PNG:     outputPNG,
+		JPG:     outputJPG,
+		JPEG:    outputJPEG,
+		SVG:     outputSVG,
+		Base64:  outputBase64,
+		Text:    outputText,
+	}
+}
 
 func (o OutputType) String() string {
 	return string(o)
 }
 
-func IsOutputType(in string, ot OutputType) bool {
-	return strings.ToLower(in) == ot.String()
+func (o *output) Is(str string, ot OutputType) bool {
+	return strings.ToLower(str) == ot.String()
 }
 
-func CaseOutputType(in string, ot OutputType) string {
-	if IsOutputType(in, ot) {
-		return in
-	}
-	return Default.String()
-}
-
-func ToOutputType(outputStr string) OutputType {
+func (o *output) ToOutputType(outputStr string) OutputType {
 	switch true {
-	case IsOutputType(outputStr, JSON):
-		return JSON
-	case IsOutputType(outputStr, PNG):
-		return PNG
-	case IsOutputType(outputStr, JPG):
-		return JPG
-	case IsOutputType(outputStr, JPEG):
-		return JPEG
-	case IsOutputType(outputStr, SVG):
-		return SVG
-	case IsOutputType(outputStr, Base64):
-		return Base64
-	case IsOutputType(outputStr, Text):
-		return Text
+	case o.Is(outputStr, outputJSON):
+		return outputJSON
+	case o.Is(outputStr, outputPNG):
+		return outputPNG
+	case o.Is(outputStr, outputJPG):
+		return outputJPG
+	case o.Is(outputStr, outputJPEG):
+		return outputJPEG
+	case o.Is(outputStr, outputSVG):
+		return outputSVG
+	case o.Is(outputStr, outputBase64):
+		return outputBase64
+	case o.Is(outputStr, outputText):
+		return outputText
 	default:
-		return Default
+		return outputDefault
 	}
 }

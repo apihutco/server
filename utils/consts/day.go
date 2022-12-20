@@ -4,30 +4,56 @@ import (
 	"time"
 )
 
-type DayCode int
-
 // Day：星期一 星期二 星期四 星期五 星期六 星期天
 
+type DayCode int
+
+var RepoDay *day
+
+type day struct {
+	Default   DayCode
+	Monday    DayCode
+	Tuesday   DayCode
+	Wednesday DayCode
+	Thursday  DayCode
+	Friday    DayCode
+	Saturday  DayCode
+	Sunday    DayCode
+}
+
 const (
-	DayDefault DayCode = iota
-	DayMonday
-	DayTuesday
-	DayWednesday
-	DayThursday
-	DayFriday
-	DaySaturday
-	DaySunday
+	dayDefault DayCode = iota
+	dayMonday
+	dayTuesday
+	dayWednesday
+	dayThursday
+	dayFriday
+	daySaturday
+	daySunday
 )
 
 var dayMap = map[DayCode]string{
-	DayDefault:   DefaultCode.CN(),
-	DayMonday:    "星期一",
-	DayTuesday:   "星期二",
-	DayWednesday: "星期三",
-	DayThursday:  "星期四",
-	DayFriday:    "星期五",
-	DaySaturday:  "星期六",
-	DaySunday:    "星期天",
+	dayDefault:   DefaultCode.CN(),
+	dayMonday:    "星期一",
+	dayTuesday:   "星期二",
+	dayWednesday: "星期三",
+	dayThursday:  "星期四",
+	dayFriday:    "星期五",
+	daySaturday:  "星期六",
+	daySunday:    "星期天",
+}
+
+func init() {
+	RepoDay = &day{
+		Default:   dayDefault,
+		Monday:    dayMonday,
+		Tuesday:   dayTuesday,
+		Wednesday: dayWednesday,
+		Thursday:  dayThursday,
+		Friday:    dayFriday,
+		Saturday:  daySaturday,
+		Sunday:    daySunday,
+	}
 }
 
 // 换取星期几文字
@@ -35,23 +61,23 @@ func (d DayCode) String() string {
 	return dayMap[d]
 }
 
-func GetDayCode() DayCode {
+func (*day) Today() DayCode {
 	switch time.Now().Weekday() {
 	case time.Sunday:
-		return DaySunday
+		return daySunday
 	case time.Monday:
-		return DayMonday
+		return dayMonday
 	case time.Tuesday:
-		return DayTuesday
+		return dayTuesday
 	case time.Wednesday:
-		return DayWednesday
+		return dayWednesday
 	case time.Thursday:
-		return DayThursday
+		return dayThursday
 	case time.Friday:
-		return DayFriday
+		return dayFriday
 	case time.Saturday:
-		return DaySaturday
+		return daySaturday
 	default:
-		return DayDefault
+		return dayDefault
 	}
 }

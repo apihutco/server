@@ -4,42 +4,62 @@ import (
 	"time"
 )
 
-type SeasonCode int
-
 // Season: 春 夏 秋 冬
 
+type SeasonCode int
+
+var RepoSeason *season
+
+type season struct {
+	Default SeasonCode
+	Spring  SeasonCode
+	Summer  SeasonCode
+	Autumn  SeasonCode
+	Winter  SeasonCode
+}
+
 const (
-	SeasonDefault SeasonCode = iota
-	SeasonSpring
-	SeasonSummer
-	SeasonAutumn
-	SeasonWinter
+	seasonDefault SeasonCode = iota
+	seasonSpring
+	seasonSummer
+	seasonAutumn
+	seasonWinter
 )
 
 var seasonMap = map[SeasonCode]string{
-	SeasonDefault: DefaultCode.CN(),
-	SeasonSpring:  "春天",
-	SeasonSummer:  "夏天",
-	SeasonAutumn:  "秋天",
-	SeasonWinter:  "冬天",
+	seasonDefault: DefaultCode.CN(),
+	seasonSpring:  "春天",
+	seasonSummer:  "夏天",
+	seasonAutumn:  "秋天",
+	seasonWinter:  "冬天",
+}
+
+func init() {
+	RepoSeason = &season{
+		Default: seasonDefault,
+		Spring:  seasonSpring,
+		Summer:  seasonSummer,
+		Autumn:  seasonAutumn,
+		Winter:  seasonWinter,
+	}
 }
 
 func (s SeasonCode) String() string {
 	return seasonMap[s]
 }
 
-func GetSeasonCode() SeasonCode {
+func (*season) Today() SeasonCode {
 	m := time.Now().Month()
 	switch {
 	case m < 3 || m == 12:
-		return SeasonWinter
+		return seasonWinter
 	case m < 6:
-		return SeasonSpring
+		return seasonSpring
 	case m < 9:
-		return SeasonSummer
+		return seasonSummer
 	case m < 12:
-		return SeasonAutumn
+		return seasonAutumn
 	default:
-		return SeasonDefault
+		return seasonDefault
 	}
 }

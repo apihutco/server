@@ -20,7 +20,7 @@ func IPHandler(c *gin.Context) {
 
 	strOutput := c.Query("output")
 	if len(strOutput) == 0 {
-		strOutput = c.DefaultQuery("o", consts.JSON.String())
+		strOutput = c.DefaultQuery("o", consts.RepoOutput.JSON.String())
 	}
 
 	logger.L().Debug("request", zap.String("ip", strIP), zap.String("output", strOutput))
@@ -41,8 +41,8 @@ func IPHandler(c *gin.Context) {
 	info.CacheTime = info.UpdatedAt
 
 	// 按格式返回
-	switch consts.ToOutputType(strOutput) {
-	case consts.Text:
+	switch true {
+	case consts.RepoOutput.Is(strOutput, consts.RepoOutput.Text):
 		response.Success(c).Data(info.String()).String()
 	default:
 		response.Success(c).Data(info).JSON()

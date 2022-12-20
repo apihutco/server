@@ -1,23 +1,39 @@
 package consts
 
-type PlatformCode uint8
-
 // Platform：本地 腾讯 高德
 
+type PlatformCode uint8
+
+var RepoPlatform *platform
+
+type platform struct {
+	Local   PlatformCode
+	Tencent PlatformCode
+	Gaode   PlatformCode
+}
+
 const (
-	Local PlatformCode = iota + 1
-	Tencent
-	Gaode
+	platformLocal PlatformCode = iota + 1
+	platformTencent
+	platformGaode
 )
 
-var PlatformName = map[PlatformCode]string{
-	Local:   "local",
-	Tencent: "tencent",
-	Gaode:   "gaode",
+var platformName = map[PlatformCode]string{
+	platformLocal:   "local",
+	platformTencent: "tencent",
+	platformGaode:   "gaode",
+}
+
+func init() {
+	RepoPlatform = &platform{
+		Local:   platformLocal,
+		Tencent: platformTencent,
+		Gaode:   platformGaode,
+	}
 }
 
 func (p PlatformCode) String() string {
-	if pl, ok := PlatformName[p]; ok {
+	if pl, ok := platformName[p]; ok {
 		return pl
 	}
 	return ""
