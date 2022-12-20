@@ -4,6 +4,7 @@ import (
 	"apihut-server/config"
 	. "apihut-server/controller"
 	"apihut-server/routers/middleware"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,10 +21,8 @@ func SetupRouter() *gin.Engine {
 	ip := r.Group("/ip")
 	{
 		// JSON
-		ip.GET("", IPJSONHandler)          // 请求来源IP
-		ip.GET("/:ip", IPJSONHandler)      // 指定IP
-		ip.GET("/json/:ip", IPJSONHandler) // JSON形式完整版
-		ip.GET("/text", IPTextHandler)     // 纯文字形式返回
+		ip.GET("", IPHandler) // 请求来源IP
+		ip.GET("/:ip", IPHandler)
 	}
 
 	// 协议测试（get，post，ws）

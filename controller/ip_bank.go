@@ -1,20 +1,29 @@
 package controller
 
 import (
+	"net"
+
 	"apihut-server/logger"
 	"apihut-server/logic/ip_bank"
 	"apihut-server/response"
-	"net"
+	"apihut-server/utils/consts"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
 
-func IPJSONHandler(c *gin.Context) {
+func IPHandler(c *gin.Context) {
 	strIP := c.Param("ip")
 	if len(strIP) == 0 {
 		strIP = c.ClientIP()
 	}
+
+	strOutput := c.Query("output")
+	if len(strOutput) == 0 {
+		strOutput = c.DefaultQuery("o", consts.JSON.String())
+	}
+
+	logger.L().Debug("request", zap.String("ip", strIP), zap.String("output", strOutput))
 
 	ip := net.ParseIP(strIP)
 	if ip == nil {
@@ -31,9 +40,11 @@ func IPJSONHandler(c *gin.Context) {
 
 	info.CacheTime = info.UpdatedAt
 
-	response.Success(c).Data(info).JSON()
-}
-
-func IPTextHandler(c *gin.Context) {
-	response.Success(c).Data(c.ClientIP() + "\n").String()
+	// 按格式返回
+	switch consts.ToOutputType(strOutput) {
+	case consts.Text:
+		response.Success(c).Data(info.String()).String()
+	default:
+		response.Success(c).Data(info).JSON()
+	}
 }

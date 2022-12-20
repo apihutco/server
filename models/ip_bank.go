@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 type IPBank struct {
 	Model
@@ -22,4 +25,16 @@ type IPBank struct {
 	Source string `gorm:"comment:数据源" json:"source"`
 	// 缓存更新时间
 	CacheTime time.Time `gorm:"-" json:"cache_time"`
+}
+
+func (i *IPBank) String() string {
+	tmpl := "IP       : %s\nAddress  : %s %s %s\nISP      : %s\n"
+
+	return fmt.Sprintf(tmpl,
+		i.IP,
+		i.Country,
+		i.Province,
+		i.City,
+		i.ISP,
+	)
 }
