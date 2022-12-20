@@ -34,6 +34,23 @@ func CaseOutputType(in string, ot OutputType) string {
 	return Default.String()
 }
 
-func ToOutputType(in string) OutputType {
-	return OutputType(in)
+func ToOutputType(outputStr string) OutputType {
+	switch true {
+	case IsOutputType(outputStr, JSON):
+		return JSON
+	case IsOutputType(outputStr, PNG):
+		return PNG
+	case IsOutputType(outputStr, JPG):
+		return JPG
+	case IsOutputType(outputStr, JPEG):
+		return JPEG
+	case IsOutputType(outputStr, SVG):
+		return SVG
+	case IsOutputType(outputStr, Base64):
+		return Base64
+	case IsOutputType(outputStr, Text):
+		return Text
+	default:
+		return Default
+	}
 }
