@@ -34,12 +34,12 @@ type gaodeRsp struct {
 }
 
 func GaodeInit() IIPCtrl {
-	return &gaode{key: config.Share.Open.Gaode.Key}
+	return &gaode{key: config.Conf.Open.Gaode.Key}
 }
 
 func (g *gaode) GetIP(ip net.IP) (*models.IPBank, error) {
 	v := url.Values{}
-	v.Set("key", config.Share.Open.Gaode.Key)
+	v.Set("key", config.Conf.Open.Gaode.Key)
 	v.Set("ip", ip.String())
 	v.Set("type", strconv.Itoa(IPVersion(ip.String())))
 	v.Set("parameters", "")

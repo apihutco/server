@@ -50,11 +50,11 @@ func main() {
 		return
 	}
 	// 初始化全文索引
-	err = bleve.Init(config.Share.Bleve.Index)
+	err = bleve.Init(config.Conf.Bleve.Index)
 	if err != nil {
 		logger.L().DPanic("bleve panic", zap.Error(err))
 		return
 	}
 
-	_ = r.Run(config.GetSitePort())
+	_ = r.Run(config.Conf.GetSitePort())
 }

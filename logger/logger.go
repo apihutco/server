@@ -1,18 +1,20 @@
 package logger
 
 import (
+	"os"
+
 	"apihut-server/config"
+
 	"github.com/gin-gonic/gin"
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"os"
 )
 
 var l *zap.Logger
 
 func Init() (err error) {
-	cfg := config.Share.Logger
+	cfg := config.Conf.Logger
 	writerSyncer := logWriter(cfg.FileName, cfg.MaxSize, cfg.MaxBackups, cfg.MaxAge)
 	encoder := logEncoder()
 	level := new(zapcore.Level)
@@ -21,7 +23,7 @@ func Init() (err error) {
 		return err
 	}
 	var core zapcore.Core
-	if config.Share.Site.Mode != gin.ReleaseMode {
+	if config.Conf.Site.Mode != gin.ReleaseMode {
 		// 开发模式同时输出终端和文件
 		console := zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig())
 		core = zapcore.NewTee(

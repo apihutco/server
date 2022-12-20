@@ -9,7 +9,7 @@ import (
 )
 
 func SetupRouter() *gin.Engine {
-	gin.SetMode(config.Share.Mode)
+	gin.SetMode(config.Conf.Mode)
 
 	r := gin.New()
 	r.StaticFile("favicon.ico", "./static/favicon.ico")

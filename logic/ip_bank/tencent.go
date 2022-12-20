@@ -40,12 +40,12 @@ type tencentRsp struct {
 }
 
 func TencentInit() IIPCtrl {
-	return &tencent{key: config.Share.Open.Tencent.Key}
+	return &tencent{key: config.Conf.Open.Tencent.Key}
 }
 
 func (t *tencent) GetIP(ip net.IP) (*models.IPBank, error) {
 	v := url.Values{}
-	v.Set("key", config.Share.Open.Tencent.Key)
+	v.Set("key", config.Conf.Open.Tencent.Key)
 	v.Set("ip", ip.String())
 
 	u, err := url.Parse("https://apis.map.qq.com/ws/location/v1/ip")

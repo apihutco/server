@@ -1,15 +1,17 @@
 package redis
 
 import (
-	"apihut-server/config"
 	"fmt"
+
+	"apihut-server/config"
+
 	"github.com/go-redis/redis"
 )
 
 var client *redis.Client
 
 func Init() (err error) {
-	cfg := config.Share.Redis
+	cfg := config.Conf.Redis
 	if !cfg.Enable {
 		return nil
 	}

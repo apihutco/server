@@ -96,7 +96,7 @@ func getFilePath(req *models.AvatarReq) string {
 		ext = consts.RepoOutput.PNG.String()
 	}
 
-	return path.Join(config.Share.File.Avatar, fmt.Sprintf(
+	return path.Join(config.Conf.File.Avatar, fmt.Sprintf(
 		"%s-%d-%d.%s",
 		req.GetHash(),
 		req.GetSize(),

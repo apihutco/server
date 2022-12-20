@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var Share *AppConf
+var Conf *AppConf
 
 type AppConf struct {
 	*Site   `mapstructure:"site"`
@@ -66,12 +66,12 @@ func Init(f string) error {
 	if err != nil {
 		return err
 	}
-	if err = viper.Unmarshal(&Share); err != nil {
+	if err = viper.Unmarshal(&Conf); err != nil {
 		return err
 	}
 
 	// 创建目录
-	err = os.MkdirAll(Share.File.Avatar, 0660)
+	err = os.MkdirAll(Conf.File.Avatar, 0660)
 	if err != nil {
 		return err
 	}
@@ -79,6 +79,6 @@ func Init(f string) error {
 	return nil
 }
 
-func GetSitePort() string {
-	return fmt.Sprintf(":%s", strconv.Itoa(Share.Site.Port))
+func (conf *AppConf) GetSitePort() string {
+	return fmt.Sprintf(":%s", strconv.Itoa(conf.Site.Port))
 }
