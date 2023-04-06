@@ -16,6 +16,8 @@ steps:
       repo: apihut/server
       tags: latest
 
+node_selector:
+  -  kubernetes.io/hostname: worker-1
 
 trigger:
   branch:
