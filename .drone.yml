@@ -14,7 +14,7 @@ steps:
       tags: latest
     when:
       branch:
-        - main
+        - ci
 
   - name: docker build hash & push
     image: plugins/docker
