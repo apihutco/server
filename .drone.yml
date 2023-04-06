@@ -17,7 +17,7 @@ steps:
       tags: latest
 
 node_selector:
-  -  kubernetes.io/hostname: worker-1
+  - "kubernetes.io/hostname": "worker-1"
 
 trigger:
   branch:
