@@ -29,6 +29,7 @@ steps:
 trigger:
   branch:
     - dev
+    - ci
 
 ---
 kind: pipeline
