@@ -2,29 +2,17 @@ kind: pipeline
 type: kubernetes
 name: build
 
+workspace:
+  path: /drone/src
+
 steps:
   - name: "docker build & push"
-    image: plugins/docker
+    image: plugins/kaniko
     settings:
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
-      repo: northes/apihut-server
+      dockerfile: Dockerfile
+      repo: apihut/server
       tags: latest
-    when:
-      branch:
-        - ci
 
-  - name: docker build hash & push
-    image: plugins/docker
-    settings:
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
-      repo: northes/apihut-server
-      tags: dev-${DRONE_COMMIT_SHA:0:8}
 
 trigger:
   branch:
