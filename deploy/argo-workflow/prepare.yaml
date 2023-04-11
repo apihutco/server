@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: apihut
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gitea-certs
+  namespace: apihut
+data:
+  username: "bm9ydGhlcw=="
+  password: "MjkxODM5MjdBYmNk"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: golang-cache
+  namespace: apihut
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: nfs-client
