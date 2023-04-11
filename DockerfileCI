@@ -1,0 +1,11 @@
+FROM hub.northes.io/alpine.gcc
+
+WORKDIR /app
+
+COPY server .
+COPY conf/config.sample.yaml conf/config.yaml
+COPY deploy/setup deploy/setup
+
+ENTRYPOINT ["/app/server"]
+CMD ["-f","./conf/config.yaml"]
+EXPOSE 8090
