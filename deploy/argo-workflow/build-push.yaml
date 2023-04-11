@@ -5,16 +5,17 @@ metadata:
   namespace: apihut
 spec:
   entrypoint: works
-  volumeClaimTemplates:
-    - metadata:
-        name: workdir
-      spec:
-        accessModes:
-          - "ReadWriteOnce"
-        resources:
-          requests:
-            storage: 1Gi
-        storageClassName: nfs-client
+  onExit: clean
+  volumes:
+    - name: workdir
+      persistentVolumeClaim:
+        claimName: golang-cache
+  arguments:
+    parameters:
+      - name: code-path
+        value: "/go/src/git.northes.io/apihut/server"
+      - name: image-repo
+        value: "192.168.31.5:5050/apihut/server:ci"
   templates:
     - name: works
       steps:
@@ -26,10 +27,10 @@ spec:
       inputs:
         artifacts:
           - name: clone
-            path: /go/src
+            path: "{{workflow.parameters.code-path}}"
             git:
               repo: http://192.168.31.5:3000/apihut/server.git
-              revision: main
+              revision: ci
               usernameSecret:
                 key: username
                 name: gitea-certs
@@ -42,7 +43,7 @@ spec:
         volumeMounts:
           - mountPath: /go
             name: workdir
-        workingDir: /go/src
+        workingDir: "{{workflow.parameters.code-path}}"
         env:
           - name: GO111MODULE
             value: "on"
@@ -54,11 +55,19 @@ spec:
             value: "amd64"
           - name: GOPROXY
             value: "http://192.168.31.5:8081"
+          - name: GOCACHE
+            value: "/go/cache/go-build"
+          - name: GOLANG_LINT_CACHE
+            value: "/go/cache/golangci-lint"
         command:
           - sh
           - -c
-        args:
-          - go env && pwd && make build && ls -la
+        args: ['
+          go env ;
+          make build ;
+          pwd ;
+          ls -la
+        ']
     - name: image
       container:
         image: hub.northes.io/kaniko-project/executor:latest
@@ -66,8 +75,19 @@ spec:
         volumeMounts:
           - mountPath: /go
             name: workdir
-        workingDir: /go/src
+        workingDir: "{{workflow.parameters.code-path}}"
         args:
-          - "--dockerfile=/go/src/DockerfileCI"
-          - "--context=dir:///go/src"
-          - "--destination=192.168.31.5:5050/apihut-server:latest"
+          - "--dockerfile={{workflow.parameters.code-path}}/DockerfileCI"
+          - "--context=dir://{{workflow.parameters.code-path}}"
+          - "--destination={{workflow.parameters.image-repo}}"
+    - name: clean
+      container:
+        image: hub.northes.io/alpine:latest
+        volumeMounts:
+          - mountPath: /go
+            name: workdir
+        command:
+          - sh
+          - -c
+        args:
+          - "rm -rf {{workflow.parameters.code-path}}"
