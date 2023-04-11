@@ -1,4 +1,4 @@
-FROM hub.northes.io/alpine.gcc
+FROM 192.168.31.5:5050/alpine:gcc
 
 WORKDIR /app
 
