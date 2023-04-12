@@ -1,0 +1,11 @@
+FROM 192.168.31.5:5050/alpine:gcc
+
+WORKDIR /app
+
+COPY server /app/server
+COPY conf/config.sample.yaml conf/config.yaml
+COPY deploy/setup deploy/setup
+
+ENTRYPOINT ["/app/server"]
+CMD ["-f","./conf/config.yaml"]
+EXPOSE 8090
