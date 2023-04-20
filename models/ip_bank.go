@@ -8,7 +8,7 @@ import (
 type IPBank struct {
 	Model
 	// IP
-	IP string `gorm:"uniqueIndex;not null;comment:IP地址" json:"ip"`
+	IP string `gorm:"uniqueIndex;type:varchar(255);not null;comment:IP地址" json:"ip"`
 	// 国家
 	Country string `gorm:"comment:国家" json:"country"`
 	// 省份
