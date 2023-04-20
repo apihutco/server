@@ -71,7 +71,7 @@ func Init(f string) error {
 	}
 
 	// 创建目录
-	err = os.MkdirAll(Conf.File.Avatar, 0660)
+	err = os.MkdirAll(Conf.File.Avatar, os.ModePerm)
 	if err != nil {
 		return err
 	}
