@@ -1,6 +1,7 @@
 package mysql
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path"
@@ -24,7 +25,14 @@ func Init() (err error) {
 	case "sqlite":
 		db, err = gorm.Open(sqlite.Open(config.Conf.DB.SQLite.Name), &gorm.Config{})
 	default:
-		db, err = gorm.Open(mysql.Open(""), &gorm.Config{})
+		db, err = gorm.Open(mysql.Open(
+			fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+				config.Conf.DB.MySQL.User,
+				config.Conf.DB.MySQL.Password,
+				config.Conf.DB.MySQL.Host,
+				config.Conf.DB.MySQL.DBName,
+			),
+		), &gorm.Config{})
 	}
 
 	err = db.AutoMigrate(
@@ -35,7 +43,8 @@ func Init() (err error) {
 		return err
 	}
 
-	err = loadSQLFile()
+	// 暂时屏蔽,手动初始化SQL
+	//err = loadSQLFile()
 
 	return err
 }
