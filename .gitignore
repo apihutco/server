@@ -4,6 +4,7 @@ conf/*
 *.log
 *.db
 bin
+logs
 
 *.png
 *.jpg
