@@ -3,9 +3,6 @@ package main
 import (
 	"flag"
 
-	"apihut-server/dao/bleve"
-	"apihut-server/utils/cron"
-
 	"apihut-server/config"
 	"apihut-server/dao/mysql"
 	"apihut-server/dao/redis"
@@ -51,13 +48,13 @@ func main() {
 		return
 	}
 	// 初始化全文索引
-	err = bleve.Init(config.Conf.Bleve.Index)
-	if err != nil {
-		logger.L().DPanic("bleve panic", zap.Error(err))
-		return
-	}
+	//err = bleve.Init(config.Conf.Bleve.Index)
+	//if err != nil {
+	//	logger.L().DPanic("bleve panic", zap.Error(err))
+	//	return
+	//}
 	// 开启定时任务
-	cron.Init()
+	//cron.Init()
 
 	_ = r.Run(config.Conf.GetSitePort())
 }

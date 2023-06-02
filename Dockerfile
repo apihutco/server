@@ -17,8 +17,8 @@ WORKDIR /app
 
 COPY --from=builder /build/bin/apihut .
 COPY ./conf/config.sample.yaml ./conf/config.yaml
-COPY ./deploy/setup ./deploy/setup
+#COPY ./deploy/setup ./deploy/setup
 
 ENTRYPOINT ["/app/apihut"]
 CMD ["-f","./conf/config.yaml"]
-EXPOSE 8090
+EXPOSE 8282
