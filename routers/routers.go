@@ -5,6 +5,7 @@ import (
 	. "apihut-server/controller"
 	"apihut-server/routers/middleware"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +13,9 @@ func SetupRouter() *gin.Engine {
 	gin.SetMode(config.Conf.Mode)
 
 	r := gin.New()
+	r.Use(cors.New(cors.Config{
+		AllowAllOrigins: true,
+	}))
 	r.StaticFile("favicon.ico", "./static/favicon.ico")
 	r.Use(middleware.Logger())
 	// 首页
