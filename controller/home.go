@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"go.uber.org/zap"
+
 	"apihut-server/config"
 
 	"github.com/gin-gonic/gin"
@@ -16,5 +18,6 @@ func NotFound(c *gin.Context) {
 }
 
 func HealthHandler(c *gin.Context) {
+	zap.L().Debug("header", zap.Any("details", c.Request.Header))
 	c.JSON(http.StatusOK, gin.H{"ok": "true"})
 }
