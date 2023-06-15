@@ -1,4 +1,4 @@
-.PHONY: run build image
+.PHONY: dev build tidy image clean
 
 export GO111MODULE=on
 export CGO_ENABLED=1
@@ -7,7 +7,7 @@ export GOARCH=amd64
 
 all: build
 
-run:
+dev:
 	@go run *.go -f ./conf/config.yaml
 
 build: tidy
