@@ -51,6 +51,13 @@ func SetupRouter() *gin.Engine {
 		r.GET("/geo", GeoBankHandler)
 	}
 
+	// 天气
+	{
+		w := r.Group("/weather")
+		w.GET("/now", WeatherNowHandler)
+		w.GET("/day3", WeatherDay3Handler)
+	}
+
 	// 健康检查
 	r.GET("/health", HealthHandler)
 	// 无匹配
