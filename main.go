@@ -8,6 +8,7 @@ import (
 	"apihut-server/dao/mysql"
 	"apihut-server/dao/redis"
 	"apihut-server/logger"
+	"apihut-server/logic"
 	"apihut-server/routers"
 
 	"go.uber.org/zap"
@@ -54,6 +55,8 @@ func main() {
 		logger.L().DPanic("bleve panic", zap.Error(err))
 		return
 	}
+	// 注册业务逻辑
+	logic.Init()
 	// 开启定时任务
 	//cron.Init()
 

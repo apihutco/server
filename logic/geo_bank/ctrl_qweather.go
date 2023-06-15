@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"strconv"
 
+	"apihut-server/config"
 	"apihut-server/models"
 
 	"github.com/pkg/errors"
@@ -99,8 +100,8 @@ func (q *qWeather) GetInfo(location string, adm string) (*models.GeoBank, error)
 	}, nil
 }
 
-func NewQWeather(key string) IGeoCtrl {
+func NewQWeather() IGeoCtrl {
 	return &qWeather{
-		key: key,
+		key: config.Conf.QWeather.Key,
 	}
 }

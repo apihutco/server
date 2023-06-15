@@ -2,9 +2,7 @@ package geo_bank
 
 import (
 	"errors"
-	"time"
 
-	"apihut-server/config"
 	"apihut-server/models"
 
 	"go.uber.org/zap"
@@ -18,24 +16,11 @@ type IGeoCtrl interface {
 	SaveInfo(info *models.GeoBank) error
 }
 
-func init() {
-	go func() {
-		time.Sleep(time.Second * 3)
-		InitGeoCtrl(config.Conf.QWeather.Key)
-		info, err := GetGeoInfo("深圳", "")
-		if err != nil {
-			zap.L().Error("get geo info ", zap.Error(err))
-			return
-		}
-		zap.L().Info("info", zap.Any("info", info))
-	}()
-}
-
-func InitGeoCtrl(key string) {
+func InitGeoCtrl() {
 	geoCtrlList = make([]IGeoCtrl, 0)
 	geoCtrlList = append(geoCtrlList,
 		NewLocal(),
-		NewQWeather(key),
+		NewQWeather(),
 	)
 }
 
