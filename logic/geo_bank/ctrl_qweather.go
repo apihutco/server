@@ -9,6 +9,7 @@ import (
 
 	"apihut-server/config"
 	"apihut-server/models"
+	"apihut-server/utils/consts"
 
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
@@ -43,8 +44,6 @@ type qWeatherLocationRsp struct {
 	} `json:"refer"`
 }
 
-const qWeatherLocationSuccessCode = "200"
-
 func (q *qWeather) GetInfo(location string, adm string) (*models.GeoBank, error) {
 	const baseURL = "https://geoapi.qweather.com/v2/city/lookup"
 	v := url.Values{}
@@ -78,7 +77,7 @@ func (q *qWeather) GetInfo(location string, adm string) (*models.GeoBank, error)
 		return nil, err
 	}
 
-	if locationInfo.Code != qWeatherLocationSuccessCode {
+	if locationInfo.Code != consts.QWeatherLocationSuccessCode {
 		return nil, errors.New(locationInfo.Code)
 	}
 
