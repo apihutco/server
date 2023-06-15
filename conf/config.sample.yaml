@@ -36,6 +36,8 @@ open:
     key: ""
   gaode:
     key: ""
+  qweather:
+    key: ""
 
 bleve:
   index: "./data/greet.blv"
