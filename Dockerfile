@@ -1,4 +1,4 @@
-FROM northes/golang:1.18-alpine-gcc AS builder
+FROM northes/golang:1.20-alpine-gcc AS builder
 
 ENV GO111MODULE=on \
     CGO_ENABLED=1 \
