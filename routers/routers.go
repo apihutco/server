@@ -13,6 +13,10 @@ func SetupRouter() *gin.Engine {
 	gin.SetMode(config.Conf.Mode)
 
 	r := gin.New()
+
+	// 使用 CloudFlare Tunnel 时获取客户端真实地址
+	r.TrustedPlatform = gin.PlatformCloudflare
+
 	r.Use(cors.New(cors.Config{
 		AllowAllOrigins: true,
 	}))
