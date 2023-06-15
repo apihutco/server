@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 
 	"apihut-server/logger"
+	"apihut-server/logic/home"
 	"apihut-server/logic/protocol"
 	"apihut-server/response"
 	"apihut-server/utils/consts"
@@ -17,7 +18,16 @@ import (
 
 func GetHandler(c *gin.Context) {
 
-	output := c.Param("output")
+	if len(c.Request.URL.Query()) == 0 {
+		page := home.Page()
+		response.Success(c).Data(page).String()
+		return
+	}
+
+	output := c.Query("output")
+	if len(output) == 0 {
+		output = c.DefaultQuery("o", consts.RepoOutput.JSON.String())
+	}
 
 	switch true {
 	case consts.RepoOutput.Is(output, consts.RepoOutput.Text):

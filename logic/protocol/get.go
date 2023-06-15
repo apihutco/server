@@ -14,6 +14,12 @@ func ParamsToJSON(req *http.Request) map[string]any {
 	res := make(map[string]any)
 
 	for key, values := range req.URL.Query() {
+
+		switch key {
+		case "o", "output":
+			continue
+		}
+
 		// 遍历重复key下的values
 		for _, value := range values {
 			// 检查key是否存在
@@ -43,6 +49,12 @@ func ParamsToString(req *http.Request) string {
 	builder := strings.Builder{}
 
 	for key, values := range req.URL.Query() {
+
+		switch key {
+		case "o", "output":
+			continue
+		}
+
 		for _, value := range values {
 			builder.WriteString(fmt.Sprintf(formatString, key, value))
 		}

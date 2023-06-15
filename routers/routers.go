@@ -18,8 +18,6 @@ func SetupRouter() *gin.Engine {
 	}))
 	r.StaticFile("favicon.ico", "./static/favicon.ico")
 	r.Use(middleware.Logger())
-	// 首页
-	r.GET("/", HomeHandler)
 
 	// IP定位
 	ip := r.Group("/ip")
@@ -31,9 +29,8 @@ func SetupRouter() *gin.Engine {
 
 	// 协议测试（get，post，ws）
 	{
-		r.GET("/get", GetHandler)               // JSON形式返回Query参数
-		r.GET("/get/:output", GetHandler)       // 按格式返回Query参数
-		r.POST("/post", PostHandler)            // 原样返回请求的Body
+		r.GET("", GetHandler)                   // JSON形式返回Query参数，为空即为首页
+		r.POST("", PostHandler)                 // 原样返回请求的Body
 		r.GET("/ws", WebSocketHandler)          // 单机ws收发
 		r.GET("/ws/:channel", WebSocketHandler) // 频道ws收发
 	}
