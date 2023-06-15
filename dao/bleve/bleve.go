@@ -48,9 +48,9 @@ func Init(indexPath string) error {
 	i.greet = greetIndex
 
 	// 同步索引，只增改不删除
-	if err = SyncFromDB(); err != nil {
-		return err
-	}
+	//if err = SyncFromDB(); err != nil {
+	//	return err
+	//}
 
 	return nil
 }
