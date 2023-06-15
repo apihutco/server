@@ -59,7 +59,7 @@ func SetupRouter() *gin.Engine {
 	{
 		w := r.Group("/weather")
 		w.GET("/now", WeatherNowHandler)
-		w.GET("/day3", WeatherDay3Handler)
+		w.GET("/3day", WeatherDay3Handler)
 	}
 
 	// 健康检查
