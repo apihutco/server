@@ -46,6 +46,11 @@ func SetupRouter() *gin.Engine {
 		r.GET("/greet", GreetHandler)
 	}
 
+	// 地理位置
+	{
+		r.GET("/geo", GeoBankHandler)
+	}
+
 	// 健康检查
 	r.GET("/health", HealthHandler)
 	// 无匹配

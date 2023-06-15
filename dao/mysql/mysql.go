@@ -38,6 +38,7 @@ func Init() (err error) {
 	err = db.AutoMigrate(
 		&models.IPBank{},
 		&models.Greet{},
+		&models.GeoBank{},
 	)
 	if err != nil {
 		return err
