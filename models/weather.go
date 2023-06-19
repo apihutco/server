@@ -1,5 +1,13 @@
 package models
 
+import (
+	"encoding"
+	"encoding/json"
+)
+
+var _ encoding.BinaryMarshaler = &Weather{}
+var _ encoding.BinaryUnmarshaler = &Weather{}
+
 type Weather struct {
 	Model
 	// 地区
@@ -31,4 +39,12 @@ type Weather struct {
 	FxLink string `gorm:"comment:可视化界面" json:"fx_link,omitempty"`
 	// 数据源
 	Sources []string `gorm:"comment:数据源" json:"sources,omitempty"`
+}
+
+func (w *Weather) UnmarshalBinary(data []byte) error {
+	return json.Unmarshal(data, w)
+}
+
+func (w *Weather) MarshalBinary() (data []byte, err error) {
+	return json.Marshal(w)
 }
