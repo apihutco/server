@@ -30,7 +30,7 @@ make build
 ### Docker
 
 ```bash
-docker build -t apihutco/server:latest
+docker build -t apihutco/server:latest .
 ```
 
 ## CICD
