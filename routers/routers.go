@@ -1,9 +1,9 @@
 package routers
 
 import (
-	"apihut-server/config"
-	. "apihut-server/controller"
-	"apihut-server/routers/middleware"
+	"github.com/apihutco/server/config"
+	. "github.com/apihutco/server/controller"
+	"github.com/apihutco/server/routers/middleware"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

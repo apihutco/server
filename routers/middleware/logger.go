@@ -1,10 +1,11 @@
 package middleware
 
 import (
-	"apihut-server/logger"
+	"time"
+
+	"github.com/apihutco/server/logger"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
-	"time"
 )
 
 func Logger() gin.HandlerFunc {

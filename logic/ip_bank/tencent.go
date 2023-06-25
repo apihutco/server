@@ -9,9 +9,9 @@ import (
 	"net/http"
 	"net/url"
 
-	"apihut-server/config"
-	"apihut-server/models"
-	"apihut-server/utils/consts"
+	"github.com/apihutco/server/config"
+	"github.com/apihutco/server/models"
+	"github.com/apihutco/server/utils/consts"
 
 	"gorm.io/gorm"
 )

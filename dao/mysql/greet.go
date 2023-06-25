@@ -1,7 +1,7 @@
 package mysql
 
 import (
-	"apihut-server/models"
+	"github.com/apihutco/server/models"
 )
 
 func CreateGreet(greet *models.Greet) error {

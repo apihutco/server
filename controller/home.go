@@ -6,7 +6,7 @@ import (
 
 	"go.uber.org/zap"
 
-	"apihut-server/config"
+	"github.com/apihutco/server/config"
 
 	"github.com/gin-gonic/gin"
 )

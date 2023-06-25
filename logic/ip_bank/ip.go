@@ -3,10 +3,10 @@ package ip_bank
 import (
 	"net"
 
-	"apihut-server/dao/mysql"
-	"apihut-server/logger"
-	"apihut-server/models"
-	"apihut-server/utils/consts"
+	"github.com/apihutco/server/dao/mysql"
+	"github.com/apihutco/server/logger"
+	"github.com/apihutco/server/models"
+	"github.com/apihutco/server/utils/consts"
 
 	"github.com/pkg/errors"
 	"go.uber.org/zap"

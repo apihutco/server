@@ -3,7 +3,7 @@ package home
 import (
 	"fmt"
 
-	"apihut-server/config"
+	"github.com/apihutco/server/config"
 )
 
 func Page() string {

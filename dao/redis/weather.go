@@ -3,7 +3,7 @@ package redis
 import (
 	"time"
 
-	"apihut-server/models"
+	"github.com/apihutco/server/models"
 )
 
 const (

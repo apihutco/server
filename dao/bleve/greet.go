@@ -1,7 +1,7 @@
 package bleve
 
 import (
-	"apihut-server/models"
+	"github.com/apihutco/server/models"
 
 	"github.com/blevesearch/bleve/v2"
 	uquery "github.com/blevesearch/bleve/v2/search/query"

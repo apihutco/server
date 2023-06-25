@@ -3,7 +3,7 @@ package logger
 import (
 	"os"
 
-	"apihut-server/config"
+	"github.com/apihutco/server/config"
 
 	"github.com/gin-gonic/gin"
 	"github.com/natefinch/lumberjack"

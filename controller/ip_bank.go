@@ -3,10 +3,10 @@ package controller
 import (
 	"net"
 
-	"apihut-server/logger"
-	"apihut-server/logic/ip_bank"
-	"apihut-server/response"
-	"apihut-server/utils/consts"
+	"github.com/apihutco/server/logger"
+	"github.com/apihutco/server/logic/ip_bank"
+	"github.com/apihutco/server/response"
+	"github.com/apihutco/server/utils/consts"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"

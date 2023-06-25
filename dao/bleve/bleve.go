@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"apihut-server/dao/mysql"
-	"apihut-server/logger"
-	"apihut-server/utils/gen"
+	"github.com/apihutco/server/dao/mysql"
+	"github.com/apihutco/server/logger"
+	"github.com/apihutco/server/utils/gen"
 
 	"github.com/blevesearch/bleve/v2"
 	"github.com/pkg/errors"

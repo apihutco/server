@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"apihut-server/logic/weather"
-	"apihut-server/response"
+	"github.com/apihutco/server/logic/weather"
+	"github.com/apihutco/server/response"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"apihut-server/logic/geo_bank"
-	"apihut-server/response"
+	"github.com/apihutco/server/logic/geo_bank"
+	"github.com/apihutco/server/response"
 
 	"github.com/gin-gonic/gin"
 )

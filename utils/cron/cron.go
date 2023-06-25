@@ -1,9 +1,9 @@
 package cron
 
 import (
-	"apihut-server/config"
-	"apihut-server/dao/bleve"
-	"apihut-server/logger"
+	"github.com/apihutco/server/config"
+	"github.com/apihutco/server/dao/bleve"
+	"github.com/apihutco/server/logger"
 
 	"github.com/robfig/cron/v3"
 	"go.uber.org/zap"

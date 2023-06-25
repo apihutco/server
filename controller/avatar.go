@@ -7,11 +7,11 @@ import (
 	"strconv"
 	"time"
 
-	"apihut-server/logger"
-	"apihut-server/logic/avatar"
-	"apihut-server/models"
-	"apihut-server/response"
-	"apihut-server/utils/consts"
+	"github.com/apihutco/server/logger"
+	"github.com/apihutco/server/logic/avatar"
+	"github.com/apihutco/server/models"
+	"github.com/apihutco/server/response"
+	"github.com/apihutco/server/utils/consts"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"

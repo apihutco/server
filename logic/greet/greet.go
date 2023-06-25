@@ -3,11 +3,11 @@ package greet
 import (
 	"strings"
 
-	"apihut-server/dao/bleve"
-	"apihut-server/logger"
-	"apihut-server/models"
-	"apihut-server/utils"
-	"apihut-server/utils/consts"
+	"github.com/apihutco/server/dao/bleve"
+	"github.com/apihutco/server/logger"
+	"github.com/apihutco/server/models"
+	"github.com/apihutco/server/utils"
+	"github.com/apihutco/server/utils/consts"
 
 	"github.com/pkg/errors"
 	"go.uber.org/zap"

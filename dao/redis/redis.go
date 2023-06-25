@@ -3,7 +3,7 @@ package redis
 import (
 	"fmt"
 
-	"apihut-server/config"
+	"github.com/apihutco/server/config"
 
 	"github.com/go-redis/redis"
 )

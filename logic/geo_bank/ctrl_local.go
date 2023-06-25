@@ -1,8 +1,8 @@
 package geo_bank
 
 import (
-	"apihut-server/dao/mysql"
-	"apihut-server/models"
+	"github.com/apihutco/server/dao/mysql"
+	"github.com/apihutco/server/models"
 )
 
 type Local struct {

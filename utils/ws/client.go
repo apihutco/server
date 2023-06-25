@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"time"
 
-	"apihut-server/logger"
+	"github.com/apihutco/server/logger"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"

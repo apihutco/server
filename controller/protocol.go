@@ -5,12 +5,12 @@ import (
 	"io"
 	"io/ioutil"
 
-	"apihut-server/logger"
-	"apihut-server/logic/home"
-	"apihut-server/logic/protocol"
-	"apihut-server/response"
-	"apihut-server/utils/consts"
-	"apihut-server/utils/ws"
+	"github.com/apihutco/server/logger"
+	"github.com/apihutco/server/logic/home"
+	"github.com/apihutco/server/logic/protocol"
+	"github.com/apihutco/server/response"
+	"github.com/apihutco/server/utils/consts"
+	"github.com/apihutco/server/utils/ws"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"

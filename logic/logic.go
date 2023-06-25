@@ -1,8 +1,8 @@
 package logic
 
 import (
-	"apihut-server/logic/geo_bank"
-	"apihut-server/logic/weather"
+	"github.com/apihutco/server/logic/geo_bank"
+	"github.com/apihutco/server/logic/weather"
 )
 
 func Init() {

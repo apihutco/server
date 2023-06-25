@@ -7,9 +7,9 @@ import (
 	"path"
 	"sync"
 
-	"apihut-server/config"
-	"apihut-server/logger"
-	"apihut-server/models"
+	"github.com/apihutco/server/config"
+	"github.com/apihutco/server/logger"
+	"github.com/apihutco/server/models"
 
 	"go.uber.org/zap"
 	"gorm.io/driver/mysql"

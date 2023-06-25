@@ -3,7 +3,7 @@ package geo_bank
 import (
 	"errors"
 
-	"apihut-server/models"
+	"github.com/apihutco/server/models"
 
 	"go.uber.org/zap"
 	"gorm.io/gorm"

@@ -3,8 +3,8 @@ package weather
 import (
 	"errors"
 
-	"apihut-server/dao/redis"
-	"apihut-server/models"
+	"github.com/apihutco/server/dao/redis"
+	"github.com/apihutco/server/models"
 
 	"go.uber.org/zap"
 )

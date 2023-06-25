@@ -1,8 +1,9 @@
 package mysql
 
 import (
-	"apihut-server/models"
 	"net"
+
+	"github.com/apihutco/server/models"
 )
 
 func CreateIPBank(ip *models.IPBank) error {

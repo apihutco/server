@@ -3,13 +3,13 @@ package main
 import (
 	"flag"
 
-	"apihut-server/config"
-	"apihut-server/dao/bleve"
-	"apihut-server/dao/mysql"
-	"apihut-server/dao/redis"
-	"apihut-server/logger"
-	"apihut-server/logic"
-	"apihut-server/routers"
+	"github.com/apihutco/server/config"
+	"github.com/apihutco/server/dao/bleve"
+	"github.com/apihutco/server/dao/mysql"
+	"github.com/apihutco/server/dao/redis"
+	"github.com/apihutco/server/logger"
+	"github.com/apihutco/server/logic"
+	"github.com/apihutco/server/routers"
 
 	"go.uber.org/zap"
 )

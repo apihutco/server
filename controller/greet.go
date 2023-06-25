@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"apihut-server/logger"
-	"apihut-server/logic/greet"
-	"apihut-server/response"
+	"github.com/apihutco/server/logger"
+	"github.com/apihutco/server/logic/greet"
+	"github.com/apihutco/server/response"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
