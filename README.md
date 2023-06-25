@@ -1,25 +1,38 @@
-## APIHut
-
-[![Build Status](https://drone.northes.co/api/badges/apihut/server/status.svg?ref=refs/heads/main)](https://drone.northes.co/apihut/server)
-
-version: 2.0
-
-Start reconstruct: 2022.09.26
-
-### 部署流程
-1. 创建基础镜像 `deploy/images`
-2. 设置 pvc，同步到 `.drone.yml` 的 `volumes` 项中
-3. harbor 创建机器人账户，拥有镜像推送权限（如果使用了预构建的镜像，创建的账户需要拥有FROM镜像的拉取权限），设置到 drone 的环境变量
-   `docker_username` `docker_password`
-4. drone 项目开启 `Trusted` 和 `Auto cancel pull requests` 和 `Auto cancel running`
-5. 推送仓库后 drone 自动构建并向 harbor 推送镜像
+<p align="center"><a href="https://apihut.co/" target="_blank"><img style="width: 250px;height: 250px" src="https://github.com/apihutco/docs/blob/main/docs/static/apihut.png?raw=true"></a></p>
 
 
-### 数据迁移
-1. 数据库迁移完成后，运行 `deploy > setup ` 下的所有 SQL 文件插入数据
+<p align="center">
+<a href="https://github.com/apihutco/server" target="_blank"><img src="https://img.shields.io/badge/release-v2.0-brightgreen" alt="Version"></a>
+<a href="https://github.com/apihutco/server/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/apihutco/server" alt="License"></a>
+<a href="https://github.com/apihutco/server" target="_blank"><img src="https://img.shields.io/github/go-mod/go-version/apihutco/server?style=flat&logo=go" alt="Go Version"></a>
+<a href="https://docs.apihut.co" target="_blank"><img src="https://img.shields.io/badge/docs-current-green" alt="Docs"></a>
+</p>
 
+# APIHut
 
-### 构建
-```shell
-go build -o app -ldflags "-X 'main.version=0.1' -X 'main.buildTime=2022-10-20 20:58'" .
+这是一个极简的接口聚合中心，旨在为个人项目提供一个通用的开放数据来源。
+
+- [支持的接口](https://docs.apihut.co/)
+
+<!--Start reconstruct: `2022.09.26`-->
+
+## 构建
+
+### Command
+
+```bash
+# 运行
+make dev
+# 构建
+make build
 ```
+
+### Docker
+
+```bash
+docker build -t apihutco/server:latest
+```
+
+## CICD
+
+`CICD` 目前使用 [Gitea](https://github.com/go-gitea/gitea) + [Argo Workflow](https://github.com/argoproj/argo-workflows/) + [Argo CD](https://github.com/argoproj/argo-cd) + [Kubernetes](https://github.com/kubernetes/kubernetes) 的工作流，通过 `webhooks` 与 模板 触发自动化的 GitOps 。相关的配置文件位于独立的 [deploy](https://github.com/apihut/deploy) 项目中。
