@@ -36,9 +36,9 @@ docker build -t apihutco/server:latest .
 
 ## CICD
 
-`CICD` 目前使用 [Gitea](https://github.com/go-gitea/gitea) + [Argo Workflow](https://github.com/argoproj/argo-workflows/) + [Argo CD](https://github.com/argoproj/argo-cd) + [Kubernetes](https://github.com/kubernetes/kubernetes) 的工作流，通过 `webhooks` 与 模板 触发自动化的 GitOps 。相关的配置文件位于独立的 [deploy](https://github.com/apihut/deploy) 项目中。
+目前使用 [Gitea](https://github.com/go-gitea/gitea) + [Argo Workflow](https://github.com/argoproj/argo-workflows/) + [Argo CD](https://github.com/argoproj/argo-cd) + [Kubernetes](https://github.com/kubernetes/kubernetes) 的工作流，通过 `webhooks` 与 模板 触发自动化的 GitOps 。相关的配置文件位于独立的 [deploy](https://github.com/apihut/deploy) 项目中。
 
 
 ## License
 
-APIHut 基于 [MIT License](https://github.com/apihutco/server/blob/main/LICENSE) 开源。
+[MIT License](https://github.com/apihutco/server/blob/main/LICENSE)
