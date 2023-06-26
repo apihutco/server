@@ -1,11 +1,12 @@
-<p align="center"><a href="https://apihut.co/" target="_blank"><img style="width: 250px;height: 250px" src="https://github.com/apihutco/docs/blob/main/docs/static/apihut.png?raw=true"></a></p>
+<p align="center"><a href="https://apihut.co/" target="_blank"><img style="width: 250px;height: 250px" src="https://github.com/apihutco/docs/blob/main/docs/static/apihut.png?raw=true" alt="Logo"></a></p>
 
 
 <p align="center">
-<a href="https://github.com/apihutco/server" target="_blank"><img src="https://img.shields.io/badge/release-v2.0-brightgreen" alt="Version"></a>
-<a href="https://github.com/apihutco/server/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/apihutco/server" alt="License"></a>
+<a href="https://github.com/apihutco/server" target="_blank"><img src="https://img.shields.io/badge/version-v2.0-brightgreen" alt="Version"></a>
 <a href="https://github.com/apihutco/server" target="_blank"><img src="https://img.shields.io/github/go-mod/go-version/apihutco/server?style=flat&logo=go" alt="Go Version"></a>
-<a href="https://docs.apihut.co" target="_blank"><img src="https://img.shields.io/badge/docs-current-green" alt="Docs"></a>
+<a href="https://github.com/apihutco/server/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/apihutco/server" alt="License"></a>
+<a href="https://goreportcard.com/report/github.com/apihutco/server"><img src="https://goreportcard.com/badge/github.com/apihutco/server" alt="Go Report Card"></a>
+<a href="https://docs.apihut.co" target="_blank"><img src="https://img.shields.io/badge/docs-current-4c6ef5?logo=vercel&logoWidth=10" alt="Docs"></a>
 </p>
 
 # APIHut
