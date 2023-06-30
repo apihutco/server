@@ -1,7 +1,7 @@
 package geo_bank
 
 import (
-	"github.com/apihutco/server/dao/mysql"
+	"github.com/apihutco/server/dao/db"
 	"github.com/apihutco/server/models"
 )
 
@@ -14,5 +14,5 @@ func (g *GeoBase) GetInfo(location string, adm string) (*models.GeoBank, error) 
 }
 
 func (g *GeoBase) SaveInfo(info *models.GeoBank) error {
-	return mysql.CreateGeoBank(info)
+	return db.Ctrl().Geo().Create(info)
 }

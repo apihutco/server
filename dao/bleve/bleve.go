@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/apihutco/server/dao/mysql"
+	"github.com/apihutco/server/dao/db"
 	"github.com/apihutco/server/logger"
 	"github.com/apihutco/server/utils/gen"
 
@@ -58,7 +58,7 @@ func Init(indexPath string) error {
 var lastSyncMD5 string
 
 func SyncFromDB() error {
-	greetList, err := mysql.GetGreetList()
+	greetList, err := db.Ctrl().Greet().List()
 	if err != nil {
 		return err
 	}

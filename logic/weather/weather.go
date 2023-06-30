@@ -3,7 +3,7 @@ package weather
 import (
 	"errors"
 
-	"github.com/apihutco/server/dao/redis"
+	"github.com/apihutco/server/dao/cache"
 	"github.com/apihutco/server/models"
 
 	"go.uber.org/zap"
@@ -23,7 +23,7 @@ func Init() {
 
 func GetNowWeather(location string) (weatherInfo *models.Weather, err error) {
 	// 从缓存中加载
-	weatherInfo, err = redis.GetWeatherCache(location)
+	weatherInfo, err = cache.Ctrl().Weather().Get(location)
 	if err != nil {
 		zap.L().Error("从缓存中加载实时天气数据失败", zap.Error(err))
 	}
@@ -41,7 +41,7 @@ func GetNowWeather(location string) (weatherInfo *models.Weather, err error) {
 
 	if weatherInfo != nil {
 		zap.L().Debug("设置实时天气缓存", zap.Any("details", weatherInfo))
-		if err = redis.SetWeatherCache(weatherInfo); err != nil {
+		if err = cache.Ctrl().Weather().Set(weatherInfo); err != nil {
 			zap.L().Error("设置实时天气缓存失败", zap.Error(err))
 		}
 		return weatherInfo, nil

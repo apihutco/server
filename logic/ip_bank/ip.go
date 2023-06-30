@@ -3,7 +3,7 @@ package ip_bank
 import (
 	"net"
 
-	"github.com/apihutco/server/dao/mysql"
+	"github.com/apihutco/server/dao/db"
 	"github.com/apihutco/server/logger"
 	"github.com/apihutco/server/models"
 	"github.com/apihutco/server/utils/consts"
@@ -43,7 +43,7 @@ func GetIP(ip net.IP) (*models.IPBank, error) {
 			// 非数据库来源的，持久化到数据库
 			var saveErr error
 			if i != 0 {
-				saveErr = mysql.CreateIPBank(ipInfo)
+				saveErr = db.Ctrl().IP().Create(ipInfo)
 				if saveErr != nil {
 					logger.L().Error("Save to db", zap.Error(saveErr), zap.String("from", ctrl.Platform().String()), zap.Any("info", ipInfo))
 				}

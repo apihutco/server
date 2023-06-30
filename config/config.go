@@ -44,14 +44,6 @@ type SQLite struct {
 	Name string `mapstructure:"name"`
 }
 
-type Redis struct {
-	Enable   bool   `mapstructure:"enable"`
-	Host     string `mapstructure:"host"`
-	Port     int    `mapstructure:"port"`
-	Password string `mapstructure:"password"`
-	DB       int    `mapstructure:"db"`
-}
-
 type Logger struct {
 	Level      string `mapstructure:"level"`
 	FileName   string `mapstructure:"file_name"`

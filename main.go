@@ -5,8 +5,8 @@ import (
 
 	"github.com/apihutco/server/config"
 	"github.com/apihutco/server/dao/bleve"
-	"github.com/apihutco/server/dao/mysql"
-	"github.com/apihutco/server/dao/redis"
+	"github.com/apihutco/server/dao/cache"
+	"github.com/apihutco/server/dao/db"
 	"github.com/apihutco/server/logger"
 	"github.com/apihutco/server/logic"
 	"github.com/apihutco/server/routers"
@@ -38,13 +38,13 @@ func main() {
 	// 初始化路由
 	r := routers.SetupRouter()
 	// 初始化数据库
-	err = mysql.Init()
+	err = db.Init()
 	if err != nil {
 		logger.L().DPanic("database panic", zap.Error(err))
 		return
 	}
 	// 初始化Redis
-	err = redis.Init()
+	err = cache.Init()
 	if err != nil {
 		logger.L().DPanic("redis panic", zap.Error(err))
 		return
