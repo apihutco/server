@@ -62,8 +62,17 @@ func SetupRouter() *gin.Engine {
 		w.GET("/3day", WeatherDay3Handler)
 	}
 
-	// 健康检查
-	r.GET("/health", HealthHandler)
+	{
+		s := r.Group("/store/:namespace/:name")
+		s.PUT("/")       // 创建
+		s.GET("/:id")    // 获取
+		s.DELETE("/:id") // 删除
+		s.PATCH("/:id")  // 更新
+		s.POST("/query") // 查询
+	}
+
+	// 应用信息
+	r.GET("/version", VersionHandler)
 	// 无匹配
 	r.NoRoute(NotFound)
 

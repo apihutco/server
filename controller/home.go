@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/apihutco/server/models"
 	"go.uber.org/zap"
 
 	"github.com/apihutco/server/config"
@@ -17,7 +18,14 @@ func NotFound(c *gin.Context) {
 	c.String(http.StatusOK, msg)
 }
 
-func HealthHandler(c *gin.Context) {
-	zap.L().Debug("header", zap.Any("details", c.Request.Header))
-	c.JSON(http.StatusOK, gin.H{"ok": "true"})
+func VersionHandler(c *gin.Context) {
+	zap.L().Debug("apihut info",
+		zap.String("version", config.VERSION),
+		zap.String("build_time", config.BUILD_TIME),
+	)
+
+	c.JSON(http.StatusOK, &models.AppInfo{
+		Version:   config.VERSION,
+		BuildTime: config.BUILD_TIME,
+	})
 }

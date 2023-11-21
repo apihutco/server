@@ -1,5 +1,6 @@
 .PHONY: dev build tidy image clean
 VERSION=$(shell git describe --always)
+TIME_NOW=$(shell date +"%Y-%m-%d_%H:%M:%S")
 include .env
 
 export GO111MODULE=on
@@ -9,11 +10,11 @@ export GOPROXY=${CUSTOM_GOPROXY}
 all: build
 
 dev:
-	go run *.go -f ./conf/config.yaml
+	go run -ldflags "-X github.com/apihutco/server/config.VERSION=$(VERSION) -X github.com/apihutco/server/config.BUILD_TIME=$(TIME_NOW)" *.go -f ./conf/config.yaml
 
 build:
 	make tidy
-	go build -o ./bin/apihut -ldflags "-s -w" .
+	go build -o ./bin/apihut -ldflags "-s -w -X github.com/apihutco/server/config.VERSION=$(VERSION) -X github.com/apihutco/server/config.BUILD_TIME=$(TIME_NOW)" .
 
 tidy:
 	go mod tidy
