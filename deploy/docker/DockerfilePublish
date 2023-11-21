@@ -1,0 +1,28 @@
+# 多架构正式发布用
+
+ARG BUILDER_IMAGR
+ARG RUNNER_IMAGE
+ARG CUSTOM_GOPROXY
+
+FROM ${BUILDER_IMAGR} AS builder
+
+ENV GO111MODULE=on \
+    CGO_ENABLED=1 \
+    GOPROXY=${RUNNER_IMAGE}
+
+WORKDIR /build
+
+COPY ../.. .
+
+RUN make build
+
+FROM ${RUNNER_IMAGE}
+
+WORKDIR /app
+
+COPY --from=builder /build/bin/apihut .
+COPY ../../conf/config.yaml.sample ./conf/config.yaml
+
+ENTRYPOINT ["/app/apihut"]
+CMD ["-f","./conf/config.yaml"]
+EXPOSE 8090

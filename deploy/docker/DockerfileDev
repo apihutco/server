@@ -1,0 +1,14 @@
+# 测试服快速打包用，需提前在本地构建
+
+ARG RUNNER_IMAGE
+
+FROM ${RUNNER_IMAGE}
+
+WORKDIR /app
+
+COPY ./bin/apihut /app/apihut
+COPY conf/config.yaml.sample conf/config.yaml
+
+ENTRYPOINT ["/app/apihut"]
+CMD ["-f","./conf/config.yaml"]
+EXPOSE 8090

@@ -1,6 +1,8 @@
 .idea
 conf/*
-!conf/config.sample.yaml
+!conf/config.yaml.sample
+.env
+!.env.sample
 *.log
 *.db
 bin
@@ -10,5 +12,3 @@ logs
 *.jpg
 *.blv
 *.bleve
-
-server
