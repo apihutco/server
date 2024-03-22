@@ -17,9 +17,7 @@ func SetupRouter() *gin.Engine {
 	// 使用 CloudFlare Tunnel 时获取客户端真实地址
 	r.TrustedPlatform = gin.PlatformCloudflare
 
-	r.Use(cors.New(cors.Config{
-		AllowAllOrigins: true,
-	}))
+	r.Use(cors.Default())
 	r.StaticFile("favicon.ico", "./static/favicon.ico")
 	r.Use(middleware.Logger())
 
