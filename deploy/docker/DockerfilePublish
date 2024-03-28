@@ -12,7 +12,7 @@ ENV GO111MODULE=on \
 
 WORKDIR /build
 
-COPY ../.. .
+COPY . .
 
 RUN make build
 

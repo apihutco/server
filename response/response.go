@@ -1,8 +1,9 @@
 package response
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Response struct {
@@ -57,16 +58,19 @@ func (r *Response) checkAndFix() {
 	}
 }
 
+// JSON return code,msg and data
 func (r *Response) JSON() {
 	r.checkAndFix()
 	r.c.JSON(r.statusCode, r.body)
 }
 
+// Pure return data with code and msg
 func (r *Response) Pure() {
 	r.checkAndFix()
 	r.c.JSON(r.statusCode, r.body.Data)
 }
 
+// String return as text
 func (r *Response) String() {
 	r.checkAndFix()
 	str, ok := r.body.Data.(string)

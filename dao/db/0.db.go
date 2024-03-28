@@ -5,15 +5,15 @@ import (
 
 	"github.com/apihutco/server/config"
 	"github.com/apihutco/server/models"
-	"go.mongodb.org/mongo-driver/mongo"
+	//"go.mongodb.org/mongo-driver/mongo"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
 type Database struct {
-	db    *gorm.DB
-	mongo *mongo.Client
+	db *gorm.DB
+	//mongo *mongo.Client
 }
 
 var sharedDatabase *Database
