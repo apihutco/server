@@ -51,15 +51,20 @@ func PostHandler(c *gin.Context) {
 		return
 	}
 
-	var h gin.H
-	err = json.Unmarshal(body, &h)
-	if err != nil {
-		logger.L().Error("序列化失败", zap.Error(err))
-		response.Error(c).Code(response.ErrorProtocolUnmarshal).JSON()
-		return
+	switch c.Request.Header.Get("Content-Type") {
+	case "application/json":
+		var h gin.H
+		err = json.Unmarshal(body, &h)
+		if err != nil {
+			logger.L().Error("序列化失败", zap.Error(err))
+			response.Error(c).Code(response.ErrorProtocolUnmarshal).JSON()
+			return
+		}
+		response.Success(c).Data(h).Pure()
+	default:
+		response.Success(c).Data(string(body)).Pure()
 	}
 
-	response.Success(c).Data(h).Pure()
 }
 
 var hub *ws.Hub
