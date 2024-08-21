@@ -71,6 +71,7 @@ func SetupRouter() *gin.Engine {
 
 	// 应用信息
 	r.GET("/version", VersionHandler)
+	r.GET("/info", VersionHandler)
 	// 无匹配
 	r.NoRoute(NotFound)
 
