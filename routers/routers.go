@@ -30,11 +30,12 @@ func SetupRouter() *gin.Engine {
 	}
 
 	// 协议测试（get，post，ws）
+	echo := r.Group("/echo")
 	{
-		r.GET("", GetHandler)                   // JSON形式返回Query参数，为空即为首页
-		r.POST("", PostHandler)                 // 原样返回请求的Body
-		r.GET("/ws", WebSocketHandler)          // 单机ws收发
-		r.GET("/ws/:channel", WebSocketHandler) // 频道ws收发
+		echo.GET("", GetHandler)                   // JSON形式返回Query参数，为空即为首页
+		echo.POST("", PostHandler)                 // 原样返回请求的Body
+		echo.GET("/ws", WebSocketHandler)          // 单机ws收发
+		echo.GET("/ws/:channel", WebSocketHandler) // 频道ws收发
 	}
 
 	// 哈希头像生成
